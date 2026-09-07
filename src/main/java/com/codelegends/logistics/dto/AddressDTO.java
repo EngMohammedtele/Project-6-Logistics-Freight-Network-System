@@ -28,6 +28,7 @@ public class AddressDTO {
     private Long id;
 
     @NotBlank
+    // Requires the street so invalid DTO payloads are rejected early.
     @Size(max = 200)
     /** Stores the street address line used for customer location records. */
     private String street;
