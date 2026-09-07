@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for shipment line item rows.
 @Table(name = "shipment_item")
+// Generates read accessors for persisted shipment line item properties.
 @Getter
 @Setter
 @NoArgsConstructor
