@@ -46,6 +46,7 @@ public class DeliveryStopDTO {
     @NotNull private LocalDateTime eta;
 
     /** References the route that owns this stop. */
+    // Documents the validation rule applied to the route identifier.
     @NotNull @Positive private Long routeId;
 
     /** References the shipment delivered at this stop. */
