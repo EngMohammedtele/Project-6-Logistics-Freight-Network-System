@@ -29,6 +29,7 @@ public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO>
     @Override
     /** Converts the persisted ServiceZone entity to its DTO representation. */
     protected ServiceZoneDTO toDTO(ServiceZone entity) {
+        // Reuses the DTO mapper to expose persisted service zone values to callers.
         return ServiceZoneDTO.convertToDTO(entity);
     }
 
