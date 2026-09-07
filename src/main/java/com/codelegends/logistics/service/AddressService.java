@@ -39,6 +39,7 @@ public class AddressService extends CrudService<Address, AddressDTO> {
     protected void copy(AddressDTO dto, Address entity) {
         // Copies the street line from the address DTO into the entity.
         entity.setStreet(dto.getStreet());
+        // Copies the city value used for address persistence.
         entity.setCity(dto.getCity());
         entity.setPostalCode(dto.getPostalCode());
         entity.setCountry(dto.getCountry());
