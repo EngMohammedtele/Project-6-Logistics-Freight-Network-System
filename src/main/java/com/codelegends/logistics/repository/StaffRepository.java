@@ -9,4 +9,5 @@ import com.codelegends.logistics.entity.Staff;
 // Uses Staff as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for staff database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface StaffRepository extends ActiveRepository<Staff> {}
