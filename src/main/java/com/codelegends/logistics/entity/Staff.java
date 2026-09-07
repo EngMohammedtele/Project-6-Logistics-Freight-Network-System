@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for warehouse staff member rows.
 @Table(name = "staff")
+// Generates read accessors for persisted warehouse staff member properties.
 @Getter
 @Setter
 @NoArgsConstructor
