@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "staff")
 // Generates read accessors for persisted warehouse staff member properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for warehouse staff member.
 @Setter
 @NoArgsConstructor
 public class Staff extends BaseClass {
