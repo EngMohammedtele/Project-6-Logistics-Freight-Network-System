@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for customer account rows.
 @Table(name = "customer")
+// Generates read accessors for persisted customer account properties.
 @Getter
 @Setter
 @NoArgsConstructor
