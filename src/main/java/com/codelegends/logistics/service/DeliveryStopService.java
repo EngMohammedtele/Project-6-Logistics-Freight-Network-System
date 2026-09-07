@@ -16,6 +16,7 @@ public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopD
     /** Injects persistence access and shared rule validation for DeliveryStop resources. */
     public DeliveryStopService(
             DeliveryStopRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, DeliveryStop.class);
     }
 
