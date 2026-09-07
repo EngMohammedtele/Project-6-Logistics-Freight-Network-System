@@ -58,6 +58,7 @@ public abstract class CrudService<E extends BaseClass, D> {
         return toDTO(entity);
     }
 
+    // Marks read operations so Spring can optimize transaction handling.
     @Transactional(readOnly = true)
     /** Reads all non-deleted resources and maps them to DTOs. */
     public List<D> getAll() {
