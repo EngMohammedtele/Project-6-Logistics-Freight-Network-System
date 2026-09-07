@@ -20,6 +20,7 @@ import java.util.List;
 public interface ShipmentRepository extends ActiveRepository<Shipment> {
 
     // Executes a custom JPQL query instead of relying only on method-name derivation.
+    // Filters active shipments by lifecycle status.
     @Query("select s from Shipment s where s.isActive=true and s.status=:status")
     /** Finds active shipments currently in the requested status. */
     List<Shipment> byStatus(@Param("status") ShipmentStatus status);
