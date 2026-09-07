@@ -20,6 +20,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for delivery stop.
 @Setter
+// Provides the default constructor required by JPA for delivery stop hydration.
 @NoArgsConstructor
 public class DeliveryStop extends BaseClass {
 
