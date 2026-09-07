@@ -11,6 +11,7 @@ import java.util.List;
  * Provides active-record persistence operations for invoice entities.
  */
 // Binds Invoice persistence to the shared active-record repository contract.
+// Uses Invoice as the aggregate root for inherited CRUD operations.
 public interface InvoiceRepository extends ActiveRepository<Invoice> {
 
     @Query(
