@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents product stock held at a warehouse shelf location.
  */
+// Registers InventoryItem as a persistent JPA entity.
 @Entity
 @Table(
         name = "inventory_item",
