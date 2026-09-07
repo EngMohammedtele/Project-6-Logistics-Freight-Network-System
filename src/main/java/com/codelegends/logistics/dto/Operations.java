@@ -13,6 +13,7 @@ import java.util.List;
  * Groups request payload records for workflow-oriented logistics operations.
  */
 public final class Operations {
+    // Prevents instantiation because this type only groups request records.
     private Operations() {}
 
     /** Describes one product and quantity requested for a shipment. */
