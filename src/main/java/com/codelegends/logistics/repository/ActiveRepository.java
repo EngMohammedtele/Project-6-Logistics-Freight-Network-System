@@ -8,6 +8,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 import java.util.Optional;
 
+// Prevents Spring Data from creating a repository bean for this shared base contract.
 @NoRepositoryBean
 public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, Long> {
     /** Returns only entities that have not been soft deleted. */
