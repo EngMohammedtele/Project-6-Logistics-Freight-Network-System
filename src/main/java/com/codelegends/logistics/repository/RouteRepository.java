@@ -27,5 +27,6 @@ public interface RouteRepository extends ActiveRepository<Route> {
                 + " r.routeDate=:date")
     /** Finds active routes assigned to a driver on a specific date. */
     // Returns driver route assignments that match the requested schedule day.
+    // Uses the driver identifier to select only that driver's routes.
     List<Route> forDriver(@Param("driverId") Long driverId, @Param("date") LocalDate date);
 }
