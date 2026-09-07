@@ -39,6 +39,7 @@ public class CustomerService extends CrudService<Customer, CustomerDTO> {
     protected void copy(CustomerDTO dto, Customer entity) {
         // Copies the customer name into the account entity.
         entity.setName(dto.getName());
+        // Copies the customer email used for contact data.
         entity.setEmail(dto.getEmail());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setType(dto.getType());
