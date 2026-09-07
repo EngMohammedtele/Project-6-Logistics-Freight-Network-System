@@ -39,6 +39,7 @@ public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
     protected void copy(VehicleDTO dto, Vehicle entity) {
         // Copies the fleet plate number into the vehicle entity.
         entity.setPlateNumber(dto.getPlateNumber());
+        // Copies the vehicle category used for capacity planning.
         entity.setType(dto.getType());
         entity.setCapacityKg(dto.getCapacityKg());
         entity.setStatus(dto.getStatus());
