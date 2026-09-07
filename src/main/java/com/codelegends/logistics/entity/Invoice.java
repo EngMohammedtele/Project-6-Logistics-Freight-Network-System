@@ -17,6 +17,7 @@ import java.util.*;
 @Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = {"shipment_id"}))
 // Generates read accessors for persisted shipment invoice properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for shipment invoice.
 @Setter
 @NoArgsConstructor
 public class Invoice extends BaseClass {
