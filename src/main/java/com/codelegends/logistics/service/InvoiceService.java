@@ -41,6 +41,7 @@ public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
         entity.setAmount(dto.getAmount());
         // Copies the invoice payment status.
         entity.setStatus(dto.getStatus());
+        // Copies the issue timestamp for the invoice.
         entity.setIssuedDate(dto.getIssuedDate());
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
         entity.setCustomer(access.get(Customer.class, dto.getCustomerId()));
