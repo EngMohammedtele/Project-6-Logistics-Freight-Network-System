@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for route workflows.
 @Service
+// Specializes the shared CRUD workflow for Route entities and DTOs.
 public class RouteService extends CrudService<Route, RouteDTO> {
     /** Injects persistence access and shared rule validation for Route resources. */
     public RouteService(RouteRepository repository, EntityAccess access, Rules rules) {
