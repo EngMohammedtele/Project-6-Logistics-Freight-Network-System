@@ -30,6 +30,7 @@ public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopD
     @Override
     /** Converts the persisted DeliveryStop entity to its DTO representation. */
     protected DeliveryStopDTO toDTO(DeliveryStop entity) {
+        // Reuses the DTO mapper to expose persisted delivery stop values to callers.
         return DeliveryStopDTO.convertToDTO(entity);
     }
 
