@@ -51,6 +51,7 @@ public class CarrierDTO {
     private String phoneNumber;
 
     @NotBlank
+    // Keeps the country constrained to the accepted request shape.
     @Size(max = 100)
     /** Stores the country associated with the resource. */
     private String country;
