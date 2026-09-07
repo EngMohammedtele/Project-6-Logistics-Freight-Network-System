@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class CustomerService extends CrudService<Customer, CustomerDTO> {
     /** Injects persistence access and shared rule validation for Customer resources. */
     public CustomerService(CustomerRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Customer.class);
     }
 
