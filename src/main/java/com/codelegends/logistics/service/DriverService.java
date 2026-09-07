@@ -41,6 +41,7 @@ public class DriverService extends CrudService<Driver, DriverDTO> {
         entity.setName(dto.getName());
         // Copies the driver license number into the entity.
         entity.setLicenseNumber(dto.getLicenseNumber());
+        // Copies the driver phone number for dispatch contact.
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setStatus(dto.getStatus());
         entity.setCarrier(access.get(Carrier.class, dto.getCarrierId()));
