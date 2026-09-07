@@ -20,6 +20,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for warehouse inventory item.
 @Setter
+// Provides the default constructor required by JPA for warehouse inventory item hydration.
 @NoArgsConstructor
 public class InventoryItem extends BaseClass {
 
