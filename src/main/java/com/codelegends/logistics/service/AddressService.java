@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for address workflows.
 @Service
+// Specializes the shared CRUD workflow for Address entities and DTOs.
 public class AddressService extends CrudService<Address, AddressDTO> {
     /** Injects persistence access and shared rule validation for Address resources. */
     public AddressService(AddressRepository repository, EntityAccess access, Rules rules) {
