@@ -37,6 +37,7 @@ public class WarehouseService extends CrudService<Warehouse, WarehouseDTO> {
     /** Copies validated DTO values and resolved relationships onto the Warehouse entity. */
     // Maps request DTO fields onto the mutable Warehouse entity.
     protected void copy(WarehouseDTO dto, Warehouse entity) {
+        // Copies the warehouse display name.
         entity.setName(dto.getName());
         entity.setLocation(dto.getLocation());
         entity.setCapacity(dto.getCapacity());
