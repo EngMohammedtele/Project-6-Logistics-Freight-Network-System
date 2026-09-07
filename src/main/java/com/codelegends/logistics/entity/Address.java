@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for customer address rows.
 @Table(name = "address")
+// Generates read accessors for persisted customer address properties.
 @Getter
 @Setter
 @NoArgsConstructor
