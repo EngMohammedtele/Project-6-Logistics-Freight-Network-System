@@ -33,6 +33,7 @@ public abstract class BaseClass {
     /** Captures the most recent persistence update time. */
     private LocalDateTime updatedDate;
 
+    // Enables optimistic locking so concurrent updates can detect stale entity versions.
     @Version private Long version;
 
     /** Initializes audit timestamps before the first insert. */
