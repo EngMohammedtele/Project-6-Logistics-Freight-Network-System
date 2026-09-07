@@ -25,6 +25,7 @@ public interface InvoiceRepository extends ActiveRepository<Invoice> {
             "select i from Invoice i where i.isActive=true and i.customer.id=:customerId and"
                 + " i.status=:status")
     /** Finds active invoices for a customer that match the requested payment status. */
+    // Returns matching invoice records for customer billing views.
     List<Invoice> unpaid(
             @Param("customerId") Long customerId, @Param("status") InvoiceStatus status);
 }
