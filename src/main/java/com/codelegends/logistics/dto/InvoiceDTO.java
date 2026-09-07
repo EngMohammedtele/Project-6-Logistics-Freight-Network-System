@@ -29,12 +29,16 @@ public class InvoiceDTO {
     /** Stores the invoice amount with currency-scale precision. */
     private BigDecimal amount;
 
+    /** Tracks whether payment is still outstanding. */
     @NotNull private InvoiceStatus status;
 
+    /** Records when the invoice was issued. */
     @NotNull @PastOrPresent private LocalDateTime issuedDate;
 
+    /** References the delivered shipment being billed. */
     @NotNull @Positive private Long shipmentId;
 
+    /** References the customer responsible for the invoice. */
     @NotNull @Positive private Long customerId;
 
     /** Maps a persisted entity into its API response representation. */
