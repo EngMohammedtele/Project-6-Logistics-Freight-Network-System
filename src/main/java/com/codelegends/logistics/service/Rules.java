@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Enforces logistics business rules before updates, persistence, deletion, and derived state changes.
  */
+// Registers business-rule checks for reuse across CRUD and workflow services.
 @Component
 public class Rules {
     /** Entity manager used for locking and JPQL rule checks. */
