@@ -20,6 +20,7 @@ public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, 
     // Returns a list because multiple active rows can match the filter.
     // Keeps soft-deleted rows out of standard list responses.
     // Applies the same active-row convention across every concrete repository.
+    // Supports service-layer reads that should ignore inactive records.
     List<E> findAllByIsActiveTrue();
 
     /** Looks up a single entity while excluding soft-deleted rows. */
