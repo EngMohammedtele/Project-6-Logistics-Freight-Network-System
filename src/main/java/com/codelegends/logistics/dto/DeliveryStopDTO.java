@@ -42,6 +42,7 @@ public class DeliveryStopDTO {
     @NotNull private StopStatus status;
 
     /** Provides the expected arrival timestamp for the stop. */
+    // Ensures the eta is present and meaningful for this DTO.
     @NotNull private LocalDateTime eta;
 
     /** References the route that owns this stop. */
