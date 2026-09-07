@@ -22,6 +22,7 @@ public class DriverService extends CrudService<Driver, DriverDTO> {
     @Override
     /** Creates a new Driver entity instance for create requests. */
     protected Driver newEntity() {
+        // Returns a blank Driver instance that the copy method will populate.
         return new Driver();
     }
 
