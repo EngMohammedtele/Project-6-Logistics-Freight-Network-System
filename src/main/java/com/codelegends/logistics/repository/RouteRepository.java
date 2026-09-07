@@ -12,6 +12,7 @@ import java.util.List;
  * Provides active-record persistence operations for route entities.
  */
 // Binds Route persistence to the shared active-record repository contract.
+// Uses Route as the aggregate root for inherited CRUD operations.
 public interface RouteRepository extends ActiveRepository<Route> {
 
     @Query(
