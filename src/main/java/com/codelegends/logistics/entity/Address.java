@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a customer address assigned to a service zone.
  */
+// Registers Address as a persistent JPA entity.
 @Entity
 @Table(name = "address")
 @Getter
