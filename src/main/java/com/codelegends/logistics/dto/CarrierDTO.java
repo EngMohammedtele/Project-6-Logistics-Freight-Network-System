@@ -35,6 +35,7 @@ public class CarrierDTO {
 
     @NotBlank
     @Size(max = 150)
+    // Requires the contact email so invalid DTO payloads are rejected early.
     @Email
     // Accepts contact email values for write requests without returning them in API responses.
     // Accepts phone values for write requests while preventing response serialization.
