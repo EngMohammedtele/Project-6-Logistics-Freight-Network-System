@@ -37,6 +37,7 @@ public class CustomerService extends CrudService<Customer, CustomerDTO> {
     /** Copies validated DTO values and resolved relationships onto the Customer entity. */
     // Maps request DTO fields onto the mutable Customer entity.
     protected void copy(CustomerDTO dto, Customer entity) {
+        // Copies the customer name into the account entity.
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
         entity.setPhoneNumber(dto.getPhoneNumber());
