@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
     /** Injects persistence access and shared rule validation for Shipment resources. */
     public ShipmentService(ShipmentRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Shipment.class);
     }
 
