@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for carrier resources.
  */
+// Registers this class as the Spring service for carrier workflows.
 @Service
 public class CarrierService extends CrudService<Carrier, CarrierDTO> {
     /** Injects persistence access and shared rule validation for Carrier resources. */
