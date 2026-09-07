@@ -29,6 +29,7 @@ public class ProductService extends CrudService<Product, ProductDTO> {
     @Override
     /** Converts the persisted Product entity to its DTO representation. */
     protected ProductDTO toDTO(Product entity) {
+        // Reuses the DTO mapper to expose persisted product values to callers.
         return ProductDTO.convertToDTO(entity);
     }
 
