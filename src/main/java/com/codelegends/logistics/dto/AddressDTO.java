@@ -34,6 +34,7 @@ public class AddressDTO {
     private String street;
 
     @NotBlank
+    // Validates the city before the value is passed to service logic.
     @Size(max = 100)
     /** Stores the city portion of the address. */
     private String city;
