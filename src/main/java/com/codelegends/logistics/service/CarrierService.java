@@ -39,6 +39,7 @@ public class CarrierService extends CrudService<Carrier, CarrierDTO> {
     protected void copy(CarrierDTO dto, Carrier entity) {
         // Copies the carrier display name into the entity.
         entity.setName(dto.getName());
+        // Copies the carrier contact email used for operations.
         entity.setContactEmail(dto.getContactEmail());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setCountry(dto.getCountry());
