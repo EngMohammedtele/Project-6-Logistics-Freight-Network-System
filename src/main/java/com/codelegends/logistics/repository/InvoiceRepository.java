@@ -28,6 +28,7 @@ public interface InvoiceRepository extends ActiveRepository<Invoice> {
     // Returns matching invoice records for customer billing views.
     // Uses the customer identifier to restrict invoices to one account.
     // Uses the status argument so callers can request paid or unpaid invoices.
+    // Returns a list because one customer can have multiple invoices in the same state.
     List<Invoice> unpaid(
             @Param("customerId") Long customerId, @Param("status") InvoiceStatus status);
 }
