@@ -37,6 +37,7 @@ public class DriverService extends CrudService<Driver, DriverDTO> {
     /** Copies validated DTO values and resolved relationships onto the Driver entity. */
     // Maps request DTO fields onto the mutable Driver entity.
     protected void copy(DriverDTO dto, Driver entity) {
+        // Copies the driver name used in route assignment views.
         entity.setName(dto.getName());
         entity.setLicenseNumber(dto.getLicenseNumber());
         entity.setPhoneNumber(dto.getPhoneNumber());
