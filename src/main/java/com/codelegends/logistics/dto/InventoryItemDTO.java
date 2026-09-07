@@ -28,6 +28,7 @@ public class InventoryItemDTO {
     private Long id;
 
     /** Stores the current stock quantity for the product in the warehouse. */
+    // Documents the validation rule applied to the quantity.
     @NotNull @PositiveOrZero private Integer quantity;
 
     @NotBlank
