@@ -22,6 +22,7 @@ public class WarehouseService extends CrudService<Warehouse, WarehouseDTO> {
     @Override
     /** Creates a new Warehouse entity instance for create requests. */
     protected Warehouse newEntity() {
+        // Returns a blank Warehouse instance that the copy method will populate.
         return new Warehouse();
     }
 
