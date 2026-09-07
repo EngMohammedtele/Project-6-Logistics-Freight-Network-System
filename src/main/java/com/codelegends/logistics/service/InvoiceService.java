@@ -37,6 +37,7 @@ public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
     /** Copies validated DTO values and resolved relationships onto the Invoice entity. */
     // Maps request DTO fields onto the mutable Invoice entity.
     protected void copy(InvoiceDTO dto, Invoice entity) {
+        // Copies the invoice amount into the billing entity.
         entity.setAmount(dto.getAmount());
         entity.setStatus(dto.getStatus());
         entity.setIssuedDate(dto.getIssuedDate());
