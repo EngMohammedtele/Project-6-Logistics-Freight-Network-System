@@ -44,6 +44,7 @@ public class CustomerDTO {
     private String email;
 
     @NotBlank
+    // Protects downstream mapping by validating the phone number at the DTO boundary.
     @Size(max = 20)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     /** Accepts the phone number during write operations while keeping it out of responses. */
