@@ -28,6 +28,7 @@ public class DriverDTO {
     private Long id;
 
     @NotBlank
+    // Requires a valid the name value for API request processing.
     @Size(max = 100)
     /** Stores the display name for the resource. */
     private String name;
