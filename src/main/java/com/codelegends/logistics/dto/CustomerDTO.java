@@ -36,6 +36,7 @@ public class CustomerDTO {
     @Size(max = 150)
     @Email
     // Allows email input during writes while keeping the value out of response payloads.
+    // Accepts phone values for write requests while preventing response serialization.
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     /** Accepts the customer email during write operations. */
     private String email;
