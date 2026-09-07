@@ -46,6 +46,7 @@ public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopD
         entity.setStatus(dto.getStatus());
         // Copies the expected arrival timestamp for the route stop.
         entity.setEta(dto.getEta());
+        // Resolves the route that owns this delivery stop.
         entity.setRoute(access.get(Route.class, dto.getRouteId()));
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
     }
