@@ -14,6 +14,7 @@ import java.util.List;
 // Uses Shipment as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for shipment database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface ShipmentRepository extends ActiveRepository<Shipment> {
 
     @Query("select s from Shipment s where s.isActive=true and s.status=:status")
