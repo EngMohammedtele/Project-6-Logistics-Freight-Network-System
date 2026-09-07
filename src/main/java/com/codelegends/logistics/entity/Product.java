@@ -15,6 +15,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for shippable product rows.
 @Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = {"sku"}))
+// Generates read accessors for persisted shippable product properties.
 @Getter
 @Setter
 @NoArgsConstructor
