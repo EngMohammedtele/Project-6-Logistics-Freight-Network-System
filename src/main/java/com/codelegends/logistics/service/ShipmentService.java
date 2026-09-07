@@ -37,6 +37,7 @@ public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
     /** Copies validated DTO values and resolved relationships onto the Shipment entity. */
     // Maps request DTO fields onto the mutable Shipment entity.
     protected void copy(ShipmentDTO dto, Shipment entity) {
+        // Copies the shipment creation timestamp from the DTO.
         entity.setShipmentDate(dto.getShipmentDate());
         entity.setStatus(dto.getStatus());
         entity.setTotalWeight(dto.getTotalWeight());
