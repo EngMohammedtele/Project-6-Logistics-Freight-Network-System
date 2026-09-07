@@ -42,8 +42,10 @@ public class AddressDTO {
     /** Stores the country associated with the resource. */
     private String country;
 
+    /** References the customer that owns this address. */
     @NotNull @Positive private Long customerId;
 
+    /** References the service zone that covers this address. */
     @NotNull @Positive private Long serviceZoneId;
 
     /** Maps a persisted entity into its API response representation. */
