@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+// Shares identifier, audit, active-state, and version fields across concrete entities.
 @MappedSuperclass
 @Getter
 @Setter
