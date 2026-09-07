@@ -51,6 +51,7 @@ public class CustomerDTO {
     private String phoneNumber;
 
     /** Classifies the customer as an individual or business account. */
+    // Requires a valid the type value for API request processing.
     @NotNull private CustomerType type;
 
     /** Maps a persisted entity into its API response representation. */
