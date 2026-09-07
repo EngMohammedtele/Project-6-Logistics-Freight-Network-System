@@ -12,6 +12,7 @@ import java.util.List;
  */
 // Binds Shipment persistence to the shared active-record repository contract.
 // Uses Shipment as the aggregate root for inherited CRUD operations.
+// Inherits Long-based identifier handling from ActiveRepository.
 public interface ShipmentRepository extends ActiveRepository<Shipment> {
 
     @Query("select s from Shipment s where s.isActive=true and s.status=:status")
