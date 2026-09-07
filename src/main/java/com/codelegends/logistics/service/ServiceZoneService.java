@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for service zone workflows.
 @Service
+// Specializes the shared CRUD workflow for ServiceZone entities and DTOs.
 public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO> {
     /** Injects persistence access and shared rule validation for ServiceZone resources. */
     public ServiceZoneService(ServiceZoneRepository repository, EntityAccess access, Rules rules) {
