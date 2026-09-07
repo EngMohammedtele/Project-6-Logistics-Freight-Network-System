@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO> {
     /** Injects persistence access and shared rule validation for ServiceZone resources. */
     public ServiceZoneService(ServiceZoneRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, ServiceZone.class);
     }
 
