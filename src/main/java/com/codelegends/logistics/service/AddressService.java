@@ -29,6 +29,7 @@ public class AddressService extends CrudService<Address, AddressDTO> {
     @Override
     /** Converts the persisted Address entity to its DTO representation. */
     protected AddressDTO toDTO(Address entity) {
+        // Reuses the DTO mapper to expose persisted address values to callers.
         return AddressDTO.convertToDTO(entity);
     }
 
