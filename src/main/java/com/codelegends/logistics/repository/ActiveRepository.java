@@ -19,6 +19,7 @@ public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, 
     // Uses a Spring Data derived query based on the inherited isActive flag.
     // Returns a list because multiple active rows can match the filter.
     // Keeps soft-deleted rows out of standard list responses.
+    // Applies the same active-row convention across every concrete repository.
     List<E> findAllByIsActiveTrue();
 
     /** Looks up a single entity while excluding soft-deleted rows. */
