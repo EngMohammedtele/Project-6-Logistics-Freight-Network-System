@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for product workflows.
 @Service
+// Specializes the shared CRUD workflow for Product entities and DTOs.
 public class ProductService extends CrudService<Product, ProductDTO> {
     /** Injects persistence access and shared rule validation for Product resources. */
     public ProductService(ProductRepository repository, EntityAccess access, Rules rules) {
