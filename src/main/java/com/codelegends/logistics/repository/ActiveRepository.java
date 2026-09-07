@@ -28,5 +28,6 @@ public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, 
     // Returns Optional because the id may be missing or inactive.
     // Accepts the entity primary key supplied by service-layer callers.
     // Uses method-name parsing instead of a hand-written JPQL query.
+    // Protects fetch-by-id flows from returning soft-deleted data.
     Optional<E> findByIdAndIsActiveTrue(Long id);
 }
