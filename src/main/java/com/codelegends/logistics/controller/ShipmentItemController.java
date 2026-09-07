@@ -6,7 +6,7 @@ import com.codelegends.logistics.service.ShipmentItemService;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Handles REST API requests for shipmentitem resources through the shared CRUD controller.
+ * Handles REST API requests for shipment item resources through the shared CRUD controller.
  */
 @RestController
 @RequestMapping("/api/shipment-items")
