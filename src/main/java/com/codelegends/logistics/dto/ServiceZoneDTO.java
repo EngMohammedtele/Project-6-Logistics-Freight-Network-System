@@ -16,6 +16,7 @@ import java.util.List;
  */
 // Generates standard accessors so the DTO remains a simple transport object.
 @Data
+// Enables readable construction when services map entities into this DTO.
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
