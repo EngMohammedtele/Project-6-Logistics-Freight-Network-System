@@ -23,6 +23,7 @@ public class TrackingEventService extends CrudService<TrackingEvent, TrackingEve
     @Override
     /** Creates a new TrackingEvent entity instance for create requests. */
     protected TrackingEvent newEntity() {
+        // Returns a blank TrackingEvent instance that the copy method will populate.
         return new TrackingEvent();
     }
 
