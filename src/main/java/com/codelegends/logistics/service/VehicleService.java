@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
     /** Injects persistence access and shared rule validation for Vehicle resources. */
     public VehicleService(VehicleRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Vehicle.class);
     }
 
