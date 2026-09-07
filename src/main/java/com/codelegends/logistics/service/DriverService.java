@@ -29,6 +29,7 @@ public class DriverService extends CrudService<Driver, DriverDTO> {
     @Override
     /** Converts the persisted Driver entity to its DTO representation. */
     protected DriverDTO toDTO(Driver entity) {
+        // Reuses the DTO mapper to expose persisted driver values to callers.
         return DriverDTO.convertToDTO(entity);
     }
 
