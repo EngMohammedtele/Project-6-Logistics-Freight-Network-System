@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for tracking event resources.
  */
+// Registers this class as the Spring service for tracking event workflows.
 @Service
 public class TrackingEventService extends CrudService<TrackingEvent, TrackingEventDTO> {
     /** Injects persistence access and shared rule validation for TrackingEvent resources. */
