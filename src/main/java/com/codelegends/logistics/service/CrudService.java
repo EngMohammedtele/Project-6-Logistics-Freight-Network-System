@@ -7,13 +7,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Implements reusable transactional CRUD behavior for soft-deletable logistics entities.
+ */
 @Transactional
 public abstract class CrudService<E extends BaseClass, D> {
+    /** Repository used for active-record persistence operations. */
     protected final ActiveRepository<E> repository;
+    /** Shared helper for resolving and locking active entities. */
     protected final EntityAccess access;
+    /** Business-rule component invoked around persistence changes. */
     protected final Rules rules;
+    /** Entity type used for generic lookups and lock operations. */
     private final Class<E> type;
 
+    /** Wires the shared dependencies needed by concrete CRUD services. */
     protected CrudService(
             ActiveRepository<E> repository, EntityAccess access, Rules rules, Class<E> type) {
         this.repository = repository;
@@ -22,12 +30,16 @@ public abstract class CrudService<E extends BaseClass, D> {
         this.type = type;
     }
 
+    /** Creates a blank entity for a create request. */
     protected abstract E newEntity();
 
+    /** Converts a persisted entity into its API DTO. */
     protected abstract D toDTO(E entity);
 
+    /** Applies DTO values onto the supplied entity. */
     protected abstract void copy(D dto, E entity);
 
+    /** Creates, validates, persists, and returns a new active resource. */
     public D create(D dto) {
         E entity = newEntity();
         copy(dto, entity);
@@ -38,15 +50,18 @@ public abstract class CrudService<E extends BaseClass, D> {
     }
 
     @Transactional(readOnly = true)
+    /** Reads all non-deleted resources and maps them to DTOs. */
     public List<D> getAll() {
         return repository.findAllByIsActiveTrue().stream().map(this::toDTO).toList();
     }
 
     @Transactional(readOnly = true)
+    /** Reads one active resource or raises a not-found exception. */
     public D getById(Long id) {
         return toDTO(access.get(type, id));
     }
 
+    /** Locks, validates, updates, and returns an existing active resource. */
     public D update(Long id, D dto) {
         E entity = access.lock(type, id);
         rules.validateUpdate(entity, dto);
@@ -58,6 +73,7 @@ public abstract class CrudService<E extends BaseClass, D> {
         return toDTO(entity);
     }
 
+    /** Performs a soft delete after validating deletion rules. */
     public void delete(Long id) {
         E entity = access.lock(type, id);
         rules.beforeDelete(entity);
