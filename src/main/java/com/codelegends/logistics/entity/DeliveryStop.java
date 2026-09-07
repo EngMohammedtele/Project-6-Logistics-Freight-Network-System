@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers DeliveryStop as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for delivery stop rows.
 @Table(
         name = "delivery_stop",
         uniqueConstraints = @UniqueConstraint(columnNames = {"route_id", "stop_sequence"}))
