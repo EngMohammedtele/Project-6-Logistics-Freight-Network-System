@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class WarehouseService extends CrudService<Warehouse, WarehouseDTO> {
     /** Injects persistence access and shared rule validation for Warehouse resources. */
     public WarehouseService(WarehouseRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Warehouse.class);
     }
 
