@@ -22,6 +22,7 @@ public class StaffService extends CrudService<Staff, StaffDTO> {
     @Override
     /** Creates a new Staff entity instance for create requests. */
     protected Staff newEntity() {
+        // Returns a blank Staff instance that the copy method will populate.
         return new Staff();
     }
 
