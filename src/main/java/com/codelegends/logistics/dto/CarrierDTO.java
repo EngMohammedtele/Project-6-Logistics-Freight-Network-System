@@ -36,6 +36,7 @@ public class CarrierDTO {
     @Size(max = 150)
     @Email
     // Accepts contact email values for write requests without returning them in API responses.
+    // Accepts phone values for write requests while preventing response serialization.
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     /** Accepts the carrier contact email during write operations. */
     private String contactEmail;
