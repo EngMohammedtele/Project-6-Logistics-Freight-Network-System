@@ -19,6 +19,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for service zone.
 @Setter
+// Provides the default constructor required by JPA for service zone hydration.
 @NoArgsConstructor
 public class ServiceZone extends BaseClass {
 
