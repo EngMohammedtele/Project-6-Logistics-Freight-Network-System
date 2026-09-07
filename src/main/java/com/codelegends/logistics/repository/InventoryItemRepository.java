@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
- * Provides active-record persistence operations for inventoryitem entities.
+ * Provides active-record persistence operations for inventory item entities.
  */
 public interface InventoryItemRepository extends ActiveRepository<InventoryItem> {
 
