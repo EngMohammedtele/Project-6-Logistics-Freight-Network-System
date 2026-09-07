@@ -29,6 +29,7 @@ public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
     @Override
     /** Converts the persisted Vehicle entity to its DTO representation. */
     protected VehicleDTO toDTO(Vehicle entity) {
+        // Reuses the DTO mapper to expose persisted vehicle values to callers.
         return VehicleDTO.convertToDTO(entity);
     }
 
