@@ -18,6 +18,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for transport carrier.
 @Setter
+// Provides the default constructor required by JPA for transport carrier hydration.
 @NoArgsConstructor
 public class Carrier extends BaseClass {
 
