@@ -23,6 +23,7 @@ public class InventoryItemService extends CrudService<InventoryItem, InventoryIt
     @Override
     /** Creates a new InventoryItem entity instance for create requests. */
     protected InventoryItem newEntity() {
+        // Returns a blank InventoryItem instance that the copy method will populate.
         return new InventoryItem();
     }
 
