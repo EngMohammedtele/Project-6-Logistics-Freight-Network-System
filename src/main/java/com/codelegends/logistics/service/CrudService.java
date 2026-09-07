@@ -12,6 +12,7 @@ import java.util.List;
  */
 // Keeps write-oriented CRUD operations inside transactional boundaries.
 @Transactional
+// Provides the reusable service template for entity-to-DTO CRUD flows.
 public abstract class CrudService<E extends BaseClass, D> {
     /** Repository used for active-record persistence operations. */
     protected final ActiveRepository<E> repository;
