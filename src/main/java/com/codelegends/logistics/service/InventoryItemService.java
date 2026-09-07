@@ -38,6 +38,7 @@ public class InventoryItemService extends CrudService<InventoryItem, InventoryIt
     /** Copies validated DTO values and resolved relationships onto the InventoryItem entity. */
     // Maps request DTO fields onto the mutable InventoryItem entity.
     protected void copy(InventoryItemDTO dto, InventoryItem entity) {
+        // Copies the inventory quantity tracked at the warehouse.
         entity.setQuantity(dto.getQuantity());
         entity.setShelfLocation(dto.getShelfLocation());
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
