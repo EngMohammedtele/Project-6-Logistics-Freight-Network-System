@@ -41,6 +41,7 @@ public class StaffService extends CrudService<Staff, StaffDTO> {
         entity.setName(dto.getName());
         // Copies the warehouse role assigned to the staff member.
         entity.setRole(dto.getRole());
+        // Copies the staff contact number for warehouse operations.
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
     }
