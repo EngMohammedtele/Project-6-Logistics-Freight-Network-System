@@ -36,5 +36,6 @@ public interface ShipmentRepository extends ActiveRepository<Shipment> {
     // Returns active shipment history for one customer account.
     // Uses the customer id as the ownership criterion for history lookups.
     // Returns a list because a customer can own multiple active shipments.
+    // Binds the customer id argument to the shipment history predicate.
     List<Shipment> history(@Param("customerId") Long customerId);
 }
