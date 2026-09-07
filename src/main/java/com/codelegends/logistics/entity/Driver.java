@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "driver", uniqueConstraints = @UniqueConstraint(columnNames = {"license_number"}))
 // Generates read accessors for persisted carrier driver properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for carrier driver.
 @Setter
 @NoArgsConstructor
 public class Driver extends BaseClass {
