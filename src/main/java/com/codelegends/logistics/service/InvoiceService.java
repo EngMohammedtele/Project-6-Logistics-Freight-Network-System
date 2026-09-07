@@ -29,6 +29,7 @@ public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
     @Override
     /** Converts the persisted Invoice entity to its DTO representation. */
     protected InvoiceDTO toDTO(Invoice entity) {
+        // Reuses the DTO mapper to expose persisted invoice values to callers.
         return InvoiceDTO.convertToDTO(entity);
     }
 
