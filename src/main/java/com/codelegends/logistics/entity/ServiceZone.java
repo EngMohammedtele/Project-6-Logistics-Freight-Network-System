@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * Represents a serviceable region and its base delivery rate.
  */
+// Registers ServiceZone as a persistent JPA entity.
 @Entity
 @Table(name = "service_zone")
 @Getter
