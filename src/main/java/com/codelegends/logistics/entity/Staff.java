@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers Staff as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for warehouse staff member rows.
 @Table(name = "staff")
 @Getter
 @Setter
