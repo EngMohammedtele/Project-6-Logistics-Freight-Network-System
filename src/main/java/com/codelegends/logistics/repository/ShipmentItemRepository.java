@@ -8,4 +8,5 @@ import com.codelegends.logistics.entity.ShipmentItem;
 // Binds ShipmentItem persistence to the shared active-record repository contract.
 // Uses ShipmentItem as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
+// Reuses active-row lookup methods for shipment item database access.
 public interface ShipmentItemRepository extends ActiveRepository<ShipmentItem> {}
