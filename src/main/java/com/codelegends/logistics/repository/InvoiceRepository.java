@@ -20,6 +20,7 @@ import java.util.List;
 public interface InvoiceRepository extends ActiveRepository<Invoice> {
 
     // Executes a custom JPQL query instead of relying only on method-name derivation.
+    // Filters active invoices by both customer ownership and payment status.
     @Query(
             "select i from Invoice i where i.isActive=true and i.customer.id=:customerId and"
                 + " i.status=:status")
