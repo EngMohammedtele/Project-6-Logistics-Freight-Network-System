@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Transfers staff data between API clients and the service layer.
  */
+// Generates standard accessors so the DTO remains a simple transport object.
 @Data
 @Builder
 @NoArgsConstructor
