@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 /**
  * Carries aggregate counts and totals for warehouse, carrier, or customer reporting responses.
  */
+// Supports concise creation of aggregate statistics responses.
 @Builder
 public record StatsDTO(
         /** Identifies the warehouse, carrier, or customer represented by the statistics. */
