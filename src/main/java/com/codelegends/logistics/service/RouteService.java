@@ -39,6 +39,7 @@ public class RouteService extends CrudService<Route, RouteDTO> {
     protected void copy(RouteDTO dto, Route entity) {
         // Copies the planned operating date for the route.
         entity.setRouteDate(dto.getRouteDate());
+        // Copies the route origin location.
         entity.setOrigin(dto.getOrigin());
         entity.setDestination(dto.getDestination());
         entity.setStatus(dto.getStatus());
