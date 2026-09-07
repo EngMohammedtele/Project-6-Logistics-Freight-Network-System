@@ -35,6 +35,7 @@ public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
 
     @Override
     /** Copies validated DTO values and resolved relationships onto the Vehicle entity. */
+    // Maps request DTO fields onto the mutable Vehicle entity.
     protected void copy(VehicleDTO dto, Vehicle entity) {
         entity.setPlateNumber(dto.getPlateNumber());
         entity.setType(dto.getType());
