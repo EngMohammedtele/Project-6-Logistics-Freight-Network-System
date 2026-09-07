@@ -13,6 +13,7 @@ import java.util.*;
  */
 // Registers Vehicle as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for carrier vehicle rows.
 @Table(name = "vehicle", uniqueConstraints = @UniqueConstraint(columnNames = {"plate_number"}))
 @Getter
 @Setter
