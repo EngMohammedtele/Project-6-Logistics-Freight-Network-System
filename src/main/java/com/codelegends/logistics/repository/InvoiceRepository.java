@@ -30,5 +30,6 @@ public interface InvoiceRepository extends ActiveRepository<Invoice> {
     // Uses the status argument so callers can request paid or unpaid invoices.
     // Returns a list because one customer can have multiple invoices in the same state.
     List<Invoice> unpaid(
+            // Binds the customer id method argument to the named JPQL predicate.
             @Param("customerId") Long customerId, @Param("status") InvoiceStatus status);
 }
