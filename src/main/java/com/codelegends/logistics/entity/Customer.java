@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers Customer as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for customer account rows.
 @Table(name = "customer")
 @Getter
 @Setter
