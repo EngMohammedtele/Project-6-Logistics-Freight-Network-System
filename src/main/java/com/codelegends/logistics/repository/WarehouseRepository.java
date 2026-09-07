@@ -9,4 +9,5 @@ import com.codelegends.logistics.entity.Warehouse;
 // Uses Warehouse as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for warehouse database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface WarehouseRepository extends ActiveRepository<Warehouse> {}
