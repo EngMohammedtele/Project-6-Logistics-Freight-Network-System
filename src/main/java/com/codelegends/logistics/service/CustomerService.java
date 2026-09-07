@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for customer resources.
  */
+// Registers this class as the Spring service for customer workflows.
 @Service
 public class CustomerService extends CrudService<Customer, CustomerDTO> {
     /** Injects persistence access and shared rule validation for Customer resources. */
