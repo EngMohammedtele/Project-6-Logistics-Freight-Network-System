@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for address resources.
  */
+// Registers this class as the Spring service for address workflows.
 @Service
 public class AddressService extends CrudService<Address, AddressDTO> {
     /** Injects persistence access and shared rule validation for Address resources. */
