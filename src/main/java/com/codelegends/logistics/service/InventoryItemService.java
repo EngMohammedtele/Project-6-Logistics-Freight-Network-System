@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for inventory item workflows.
 @Service
+// Specializes the shared CRUD workflow for InventoryItem entities and DTOs.
 public class InventoryItemService extends CrudService<InventoryItem, InventoryItemDTO> {
     /** Injects persistence access and shared rule validation for InventoryItem resources. */
     public InventoryItemService(
