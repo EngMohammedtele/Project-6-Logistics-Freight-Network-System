@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers Route as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for delivery route rows.
 @Table(name = "route")
 @Getter
 @Setter
