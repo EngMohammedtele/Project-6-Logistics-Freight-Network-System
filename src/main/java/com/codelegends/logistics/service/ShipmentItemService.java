@@ -23,6 +23,7 @@ public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemD
     @Override
     /** Creates a new ShipmentItem entity instance for create requests. */
     protected ShipmentItem newEntity() {
+        // Returns a blank ShipmentItem instance that the copy method will populate.
         return new ShipmentItem();
     }
 
