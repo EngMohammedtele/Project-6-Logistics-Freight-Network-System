@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for delivery stop resources.
  */
+// Registers this class as the Spring service for delivery stop workflows.
 @Service
 public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopDTO> {
     /** Injects persistence access and shared rule validation for DeliveryStop resources. */
