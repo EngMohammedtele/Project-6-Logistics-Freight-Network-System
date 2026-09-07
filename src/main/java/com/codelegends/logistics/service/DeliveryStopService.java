@@ -36,6 +36,7 @@ public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopD
 
     @Override
     /** Copies validated DTO values and resolved relationships onto the DeliveryStop entity. */
+    // Maps request DTO fields onto the mutable DeliveryStop entity.
     protected void copy(DeliveryStopDTO dto, DeliveryStop entity) {
         entity.setSequence(dto.getSequence());
         entity.setAddress(dto.getAddress());
