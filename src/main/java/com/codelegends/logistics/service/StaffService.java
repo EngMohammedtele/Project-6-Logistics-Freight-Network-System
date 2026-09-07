@@ -37,6 +37,7 @@ public class StaffService extends CrudService<Staff, StaffDTO> {
     /** Copies validated DTO values and resolved relationships onto the Staff entity. */
     // Maps request DTO fields onto the mutable Staff entity.
     protected void copy(StaffDTO dto, Staff entity) {
+        // Copies the staff member name into the entity.
         entity.setName(dto.getName());
         entity.setRole(dto.getRole());
         entity.setPhoneNumber(dto.getPhoneNumber());
