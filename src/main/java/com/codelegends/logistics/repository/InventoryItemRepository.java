@@ -27,5 +27,6 @@ public interface InventoryItemRepository extends ActiveRepository<InventoryItem>
     // Uses the threshold argument as the upper bound for matching quantities.
     // Supports replenishment screens that need below-threshold stock records.
     // Binds the threshold argument to the JPQL quantity comparison.
+    // Keeps the named parameter aligned with the query placeholder.
     List<InventoryItem> below(@Param("threshold") Integer threshold);
 }
