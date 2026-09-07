@@ -22,6 +22,7 @@ public class CarrierService extends CrudService<Carrier, CarrierDTO> {
     @Override
     /** Creates a new Carrier entity instance for create requests. */
     protected Carrier newEntity() {
+        // Returns a blank Carrier instance that the copy method will populate.
         return new Carrier();
     }
 
