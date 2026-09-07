@@ -15,6 +15,7 @@ import java.util.List;
 // Uses Route as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for route database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface RouteRepository extends ActiveRepository<Route> {
 
     @Query(
