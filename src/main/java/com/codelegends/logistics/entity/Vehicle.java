@@ -17,6 +17,7 @@ import java.util.*;
 @Table(name = "vehicle", uniqueConstraints = @UniqueConstraint(columnNames = {"plate_number"}))
 // Generates read accessors for persisted carrier vehicle properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for carrier vehicle.
 @Setter
 @NoArgsConstructor
 public class Vehicle extends BaseClass {
