@@ -47,6 +47,7 @@ public class AddressService extends CrudService<Address, AddressDTO> {
         entity.setCountry(dto.getCountry());
         // Resolves the owning customer before attaching it to the address.
         entity.setCustomer(access.get(Customer.class, dto.getCustomerId()));
+        // Resolves the service zone that covers the address.
         entity.setServiceZone(access.get(ServiceZone.class, dto.getServiceZoneId()));
     }
 }
