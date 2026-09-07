@@ -7,4 +7,5 @@ import com.codelegends.logistics.entity.Address;
  */
 // Binds Address persistence to the shared active-record repository contract.
 // Uses Address as the aggregate root for inherited CRUD operations.
+// Inherits Long-based identifier handling from ActiveRepository.
 public interface AddressRepository extends ActiveRepository<Address> {}
