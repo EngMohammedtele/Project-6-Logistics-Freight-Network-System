@@ -22,6 +22,7 @@ public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
     @Override
     /** Creates a new Shipment entity instance for create requests. */
     protected Shipment newEntity() {
+        // Returns a blank Shipment instance that the copy method will populate.
         return new Shipment();
     }
 
