@@ -21,6 +21,7 @@ import java.util.List;
 public interface RouteRepository extends ActiveRepository<Route> {
 
     // Executes a custom JPQL query instead of relying only on method-name derivation.
+    // Filters active routes assigned to a specific driver on a specific date.
     @Query(
             "select r from Route r where r.isActive=true and r.driver.id=:driverId and"
                 + " r.routeDate=:date")
