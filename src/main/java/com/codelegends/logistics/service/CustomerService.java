@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for customer workflows.
 @Service
+// Specializes the shared CRUD workflow for Customer entities and DTOs.
 public class CustomerService extends CrudService<Customer, CustomerDTO> {
     /** Injects persistence access and shared rule validation for Customer resources. */
     public CustomerService(CustomerRepository repository, EntityAccess access, Rules rules) {
