@@ -26,6 +26,7 @@ public interface ShipmentRepository extends ActiveRepository<Shipment> {
     // Returns shipments currently matching the supplied lifecycle state.
     // Supports operational dashboards that group shipments by status.
     // Returns a list because many shipments can share the same status.
+    // Binds the shipment status argument into the JPQL status predicate.
     List<Shipment> byStatus(@Param("status") ShipmentStatus status);
 
     @Query("select s from Shipment s where s.isActive=true and s.customer.id=:customerId")
