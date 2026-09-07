@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a timestamped shipment tracking update.
  */
+// Registers TrackingEvent as a persistent JPA entity.
 @Entity
 @Table(name = "tracking_event")
 @Getter
