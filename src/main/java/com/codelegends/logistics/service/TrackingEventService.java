@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for tracking event workflows.
 @Service
+// Specializes the shared CRUD workflow for TrackingEvent entities and DTOs.
 public class TrackingEventService extends CrudService<TrackingEvent, TrackingEventDTO> {
     /** Injects persistence access and shared rule validation for TrackingEvent resources. */
     public TrackingEventService(
