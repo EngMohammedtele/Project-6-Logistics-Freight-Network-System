@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "warehouse")
 // Generates read accessors for persisted storage warehouse properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for storage warehouse.
 @Setter
 @NoArgsConstructor
 public class Warehouse extends BaseClass {
