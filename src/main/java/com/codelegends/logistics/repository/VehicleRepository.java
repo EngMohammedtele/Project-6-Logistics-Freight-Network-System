@@ -25,5 +25,6 @@ public interface VehicleRepository extends ActiveRepository<Vehicle> {
     /** Finds active vehicles matching the requested availability status. */
     // Returns vehicles that match the requested assignment readiness state.
     // Supports dispatch selection by narrowing the fleet to a status value.
+    // Returns a list because several vehicles can share the same availability.
     List<Vehicle> available(@Param("status") Availability status);
 }
