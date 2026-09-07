@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for shipment tracking event rows.
 @Table(name = "tracking_event")
+// Generates read accessors for persisted shipment tracking event properties.
 @Getter
 @Setter
 @NoArgsConstructor
