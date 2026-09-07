@@ -11,7 +11,7 @@ import java.time.*;
 import java.util.List;
 
 /**
- * Transfers deliverystop data between API clients and the service layer.
+ * Transfers delivery stop data between API clients and the service layer.
  */
 @Data
 @Builder
