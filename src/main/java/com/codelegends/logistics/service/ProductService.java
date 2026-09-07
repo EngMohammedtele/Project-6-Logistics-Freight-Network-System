@@ -22,6 +22,7 @@ public class ProductService extends CrudService<Product, ProductDTO> {
     @Override
     /** Creates a new Product entity instance for create requests. */
     protected Product newEntity() {
+        // Returns a blank Product instance that the copy method will populate.
         return new Product();
     }
 
