@@ -18,6 +18,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for carrier driver.
 @Setter
+// Provides the default constructor required by JPA for carrier driver hydration.
 @NoArgsConstructor
 public class Driver extends BaseClass {
 
