@@ -14,6 +14,7 @@ import java.util.List;
 // Uses Invoice as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for invoice database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface InvoiceRepository extends ActiveRepository<Invoice> {
 
     @Query(
