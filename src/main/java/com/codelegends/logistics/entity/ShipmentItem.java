@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a product line item included in a shipment.
  */
+// Registers ShipmentItem as a persistent JPA entity.
 @Entity
 @Table(name = "shipment_item")
 @Getter
