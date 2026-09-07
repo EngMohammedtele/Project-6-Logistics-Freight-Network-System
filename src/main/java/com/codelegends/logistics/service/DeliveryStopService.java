@@ -6,24 +6,31 @@ import com.codelegends.logistics.repository.*;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Applies CRUD persistence and DTO mapping for deliverystop resources.
+ */
 @Service
 public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopDTO> {
+    /** Injects persistence access and shared rule validation for DeliveryStop resources. */
     public DeliveryStopService(
             DeliveryStopRepository repository, EntityAccess access, Rules rules) {
         super(repository, access, rules, DeliveryStop.class);
     }
 
     @Override
+    /** Creates a new DeliveryStop entity instance for create requests. */
     protected DeliveryStop newEntity() {
         return new DeliveryStop();
     }
 
     @Override
+    /** Converts the persisted DeliveryStop entity to its DTO representation. */
     protected DeliveryStopDTO toDTO(DeliveryStop entity) {
         return DeliveryStopDTO.convertToDTO(entity);
     }
 
     @Override
+    /** Copies validated DTO values and resolved relationships onto the DeliveryStop entity. */
     protected void copy(DeliveryStopDTO dto, DeliveryStop entity) {
         entity.setSequence(dto.getSequence());
         entity.setAddress(dto.getAddress());
