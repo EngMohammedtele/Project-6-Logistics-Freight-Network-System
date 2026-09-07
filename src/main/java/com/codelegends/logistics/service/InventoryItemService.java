@@ -40,6 +40,7 @@ public class InventoryItemService extends CrudService<InventoryItem, InventoryIt
     protected void copy(InventoryItemDTO dto, InventoryItem entity) {
         // Copies the inventory quantity tracked at the warehouse.
         entity.setQuantity(dto.getQuantity());
+        // Copies the shelf location used for stock placement.
         entity.setShelfLocation(dto.getShelfLocation());
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
         entity.setProduct(access.get(Product.class, dto.getProductId()));
