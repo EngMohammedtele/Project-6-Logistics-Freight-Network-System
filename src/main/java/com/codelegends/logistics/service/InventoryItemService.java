@@ -7,7 +7,7 @@ import com.codelegends.logistics.repository.*;
 import org.springframework.stereotype.Service;
 
 /**
- * Applies CRUD persistence and DTO mapping for inventoryitem resources.
+ * Applies CRUD persistence and DTO mapping for inventory item resources.
  */
 @Service
 public class InventoryItemService extends CrudService<InventoryItem, InventoryItemDTO> {
