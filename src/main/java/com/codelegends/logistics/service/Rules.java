@@ -10,14 +10,20 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Enforces logistics business rules before updates, persistence, deletion, and derived state changes.
+ */
 @Component
 public class Rules {
+    /** Entity manager used for locking and JPQL rule checks. */
     @PersistenceContext private EntityManager em;
 
+    /** Raises a business exception when a rule condition fails. */
     public void require(boolean condition, String message) {
         if (!condition) throw new BusinessException(message);
     }
 
+    /** Blocks direct CRUD updates that would bypass dedicated workflow operations. */
     public void validateUpdate(BaseClass e, Object dto) {
         if (e instanceof Shipment s) {
             var d = (com.codelegends.logistics.dto.ShipmentDTO) dto;
@@ -88,6 +94,7 @@ public class Rules {
         }
     }
 
+    /** Reverses derived stock effects before mutable shipment item changes. */
     public void beforeChange(BaseClass e) {
         if (e instanceof ShipmentItem i) {
             require(
@@ -97,6 +104,7 @@ public class Rules {
         }
     }
 
+    /** Locks matching inventory stock and applies the requested quantity delta. */
     private void adjustStock(ShipmentItem item, int delta) {
         List<InventoryItem> stock =
                 em.createQuery(
@@ -113,6 +121,7 @@ public class Rules {
         i.setQuantity(i.getQuantity() + delta);
     }
 
+    /** Enforces cross-entity invariants before an entity is persisted. */
     public void beforeSave(BaseClass e, boolean creating) {
         if (e instanceof InventoryItem i) {
             em.lock(i.getWarehouse(), LockModeType.PESSIMISTIC_WRITE);
@@ -180,6 +189,7 @@ public class Rules {
         }
     }
 
+    /** Validates route, shipment, sequence, capacity, and ETA constraints for a stop. */
     public void validateStop(DeliveryStop d) {
         em.lock(d.getRoute(), LockModeType.PESSIMISTIC_WRITE);
         require(d.getRoute().getStatus() != RouteStatus.COMPLETED, "Route is already complete");
@@ -218,6 +228,7 @@ public class Rules {
                 "ETA must be on route date");
     }
 
+    /** Updates derived shipment weight and tracking-driven shipment status after save. */
     public void afterSave(BaseClass e) {
         if (e instanceof ShipmentItem i) {
             BigDecimal weight =
@@ -239,6 +250,7 @@ public class Rules {
         }
     }
 
+    /** Validates soft-delete rules and releases assigned route resources when allowed. */
     public void beforeDelete(BaseClass e) {
         if (e instanceof ShipmentItem) beforeChange(e);
         if (e instanceof Route r) {
