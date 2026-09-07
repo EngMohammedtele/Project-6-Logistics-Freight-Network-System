@@ -17,6 +17,7 @@ import java.util.*;
 @Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = {"sku"}))
 // Generates read accessors for persisted shippable product properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for shippable product.
 @Setter
 @NoArgsConstructor
 public class Product extends BaseClass {
