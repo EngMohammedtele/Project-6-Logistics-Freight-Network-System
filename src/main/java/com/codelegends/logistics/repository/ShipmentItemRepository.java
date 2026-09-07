@@ -9,4 +9,5 @@ import com.codelegends.logistics.entity.ShipmentItem;
 // Uses ShipmentItem as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for shipment item database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface ShipmentItemRepository extends ActiveRepository<ShipmentItem> {}
