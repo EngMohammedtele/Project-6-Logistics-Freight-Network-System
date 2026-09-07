@@ -28,6 +28,7 @@ public class CustomerDTO {
     private Long id;
 
     @NotBlank
+    // Ensures the name is present and meaningful for this DTO.
     @Size(max = 100)
     /** Stores the display name for the resource. */
     private String name;
