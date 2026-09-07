@@ -2,6 +2,7 @@ package com.codelegends.logistics.repository;
 
 import com.codelegends.logistics.entity.*;
 
+// Imports Query so the repository can declare explicit JPQL statements.
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
