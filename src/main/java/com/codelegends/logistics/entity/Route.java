@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a planned delivery route assigned to a vehicle and driver.
  */
+// Registers Route as a persistent JPA entity.
 @Entity
 @Table(name = "route")
 @Getter
