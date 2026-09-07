@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class AddressService extends CrudService<Address, AddressDTO> {
     /** Injects persistence access and shared rule validation for Address resources. */
     public AddressService(AddressRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Address.class);
     }
 
