@@ -34,6 +34,7 @@ public class DriverDTO {
 
     @NotBlank
     @Size(max = 50)
+    // Accepts license values during driver writes without exposing them through reads.
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     /** Accepts the driver license number during write operations. */
     private String licenseNumber;
