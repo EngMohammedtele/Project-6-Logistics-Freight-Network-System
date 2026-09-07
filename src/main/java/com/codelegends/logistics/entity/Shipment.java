@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * Represents a customer shipment handled by a warehouse and carrier.
  */
+// Registers Shipment as a persistent JPA entity.
 @Entity
 @Table(name = "shipment")
 @Getter
