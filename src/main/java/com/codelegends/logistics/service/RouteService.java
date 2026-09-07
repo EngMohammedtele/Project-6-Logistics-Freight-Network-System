@@ -29,6 +29,7 @@ public class RouteService extends CrudService<Route, RouteDTO> {
     @Override
     /** Converts the persisted Route entity to its DTO representation. */
     protected RouteDTO toDTO(Route entity) {
+        // Reuses the DTO mapper to expose persisted route values to callers.
         return RouteDTO.convertToDTO(entity);
     }
 
