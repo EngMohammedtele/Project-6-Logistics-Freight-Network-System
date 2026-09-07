@@ -29,6 +29,7 @@ public class WarehouseService extends CrudService<Warehouse, WarehouseDTO> {
     @Override
     /** Converts the persisted Warehouse entity to its DTO representation. */
     protected WarehouseDTO toDTO(Warehouse entity) {
+        // Reuses the DTO mapper to expose persisted warehouse values to callers.
         return WarehouseDTO.convertToDTO(entity);
     }
 
