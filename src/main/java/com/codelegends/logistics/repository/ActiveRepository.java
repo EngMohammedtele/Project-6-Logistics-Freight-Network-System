@@ -26,5 +26,6 @@ public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, 
     /** Looks up a single entity while excluding soft-deleted rows. */
     // Combines identifier lookup with the active-row predicate.
     // Returns Optional because the id may be missing or inactive.
+    // Accepts the entity primary key supplied by service-layer callers.
     Optional<E> findByIdAndIsActiveTrue(Long id);
 }
