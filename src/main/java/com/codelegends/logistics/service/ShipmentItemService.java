@@ -40,6 +40,7 @@ public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemD
     protected void copy(ShipmentItemDTO dto, ShipmentItem entity) {
         // Copies the requested product quantity for the shipment line.
         entity.setQuantity(dto.getQuantity());
+        // Resolves the shipment that owns this line item.
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
         entity.setProduct(access.get(Product.class, dto.getProductId()));
     }
