@@ -6,7 +6,7 @@ import com.codelegends.logistics.service.TrackingEventService;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Handles REST API requests for trackingevent resources through the shared CRUD controller.
+ * Handles REST API requests for tracking event resources through the shared CRUD controller.
  */
 @RestController
 @RequestMapping("/api/tracking-events")
