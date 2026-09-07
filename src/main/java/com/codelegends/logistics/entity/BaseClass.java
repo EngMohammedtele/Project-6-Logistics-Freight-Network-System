@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 // Shares identifier, audit, active-state, and version fields across concrete entities.
 @MappedSuperclass
+// Generates read accessors for inherited persistence metadata.
 @Getter
 @Setter
 public abstract class BaseClass {
