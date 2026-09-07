@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 import java.time.*;
 import java.util.List;
 
+/**
+ * Groups request payload records for workflow-oriented logistics operations.
+ */
 public final class Operations {
     private Operations() {}
 
