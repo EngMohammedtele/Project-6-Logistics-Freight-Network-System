@@ -35,6 +35,7 @@ public class AddressService extends CrudService<Address, AddressDTO> {
 
     @Override
     /** Copies validated DTO values and resolved relationships onto the Address entity. */
+    // Maps request DTO fields onto the mutable Address entity.
     protected void copy(AddressDTO dto, Address entity) {
         entity.setStreet(dto.getStreet());
         entity.setCity(dto.getCity());
