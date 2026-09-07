@@ -11,6 +11,7 @@ import java.util.List;
  * Provides active-record persistence operations for vehicle entities.
  */
 // Binds Vehicle persistence to the shared active-record repository contract.
+// Uses Vehicle as the aggregate root for inherited CRUD operations.
 public interface VehicleRepository extends ActiveRepository<Vehicle> {
 
     @Query("select v from Vehicle v where v.isActive=true and v.status=:status")
