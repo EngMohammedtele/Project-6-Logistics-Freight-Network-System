@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class StaffService extends CrudService<Staff, StaffDTO> {
     /** Injects persistence access and shared rule validation for Staff resources. */
     public StaffService(StaffRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Staff.class);
     }
 
