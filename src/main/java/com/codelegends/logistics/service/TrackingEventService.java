@@ -36,6 +36,7 @@ public class TrackingEventService extends CrudService<TrackingEvent, TrackingEve
 
     @Override
     /** Copies validated DTO values and resolved relationships onto the TrackingEvent entity. */
+    // Maps request DTO fields onto the mutable TrackingEvent entity.
     protected void copy(TrackingEventDTO dto, TrackingEvent entity) {
         entity.setEventTime(dto.getEventTime());
         entity.setLocation(dto.getLocation());
