@@ -54,6 +54,7 @@ public class DriverDTO {
     @NotNull private Availability status;
 
     /** References the carrier that employs the driver. */
+    // Ensures the carrier identifier is present and meaningful for this DTO.
     @NotNull @Positive private Long carrierId;
 
     /** Maps a persisted entity into its API response representation. */
