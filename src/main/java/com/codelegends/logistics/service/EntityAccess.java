@@ -7,10 +7,15 @@ import jakarta.persistence.*;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Centralizes active-entity lookup and pessimistic locking for service workflows.
+ */
 @Component
 public class EntityAccess {
+    /** Entity manager used for active lookups and pessimistic locks. */
     @PersistenceContext private EntityManager em;
 
+    /** Returns an active entity or raises a not-found exception. */
     public <E extends BaseClass> E get(Class<E> type, Long id) {
         E entity = id == null ? null : em.find(type, id);
         if (entity == null || !entity.isActive()) {
@@ -19,6 +24,7 @@ public class EntityAccess {
         return entity;
     }
 
+    /** Resolves an entity and applies a pessimistic write lock. */
     public <E extends BaseClass> E lock(Class<E> type, Long id) {
         E entity = get(type, id);
         em.lock(entity, LockModeType.PESSIMISTIC_WRITE);
