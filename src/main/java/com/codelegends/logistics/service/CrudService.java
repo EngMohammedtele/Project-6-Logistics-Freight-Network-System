@@ -48,6 +48,7 @@ public abstract class CrudService<E extends BaseClass, D> {
         E entity = newEntity();
         // Applies incoming DTO values before save-time validation runs.
         copy(dto, entity);
+        // Runs creation-specific business rules before persistence.
         rules.beforeSave(entity, true);
         repository.saveAndFlush(entity);
         rules.afterSave(entity);
