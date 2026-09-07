@@ -11,7 +11,7 @@ import java.time.*;
 import java.util.List;
 
 /**
- * Transfers trackingevent data between API clients and the service layer.
+ * Transfers tracking event data between API clients and the service layer.
  */
 @Data
 @Builder
