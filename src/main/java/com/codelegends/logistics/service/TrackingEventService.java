@@ -7,7 +7,7 @@ import com.codelegends.logistics.repository.*;
 import org.springframework.stereotype.Service;
 
 /**
- * Applies CRUD persistence and DTO mapping for trackingevent resources.
+ * Applies CRUD persistence and DTO mapping for tracking event resources.
  */
 @Service
 public class TrackingEventService extends CrudService<TrackingEvent, TrackingEventDTO> {
