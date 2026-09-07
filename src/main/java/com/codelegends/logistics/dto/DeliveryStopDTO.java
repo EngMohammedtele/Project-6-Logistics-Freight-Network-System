@@ -50,6 +50,7 @@ public class DeliveryStopDTO {
     @NotNull @Positive private Long routeId;
 
     /** References the shipment delivered at this stop. */
+    // Protects downstream mapping by validating the shipment identifier at the DTO boundary.
     @NotNull @Positive private Long shipmentId;
 
     /** Maps a persisted entity into its API response representation. */
