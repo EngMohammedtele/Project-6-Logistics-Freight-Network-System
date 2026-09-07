@@ -62,6 +62,7 @@ public abstract class CrudService<E extends BaseClass, D> {
     @Transactional(readOnly = true)
     /** Reads all non-deleted resources and maps them to DTOs. */
     public List<D> getAll() {
+        // Reads only active records before converting the stream to DTOs.
         return repository.findAllByIsActiveTrue().stream().map(this::toDTO).toList();
     }
 
