@@ -44,6 +44,7 @@ public abstract class CrudService<E extends BaseClass, D> {
 
     /** Creates, validates, persists, and returns a new active resource. */
     public D create(D dto) {
+        // Starts creation with a blank entity supplied by the concrete service.
         E entity = newEntity();
         copy(dto, entity);
         rules.beforeSave(entity, true);
