@@ -30,6 +30,7 @@ public interface ShipmentRepository extends ActiveRepository<Shipment> {
     // Keeps the query status filter aligned with the service request.
     List<Shipment> byStatus(@Param("status") ShipmentStatus status);
 
+    // Filters active shipments that belong to the selected customer.
     @Query("select s from Shipment s where s.isActive=true and s.customer.id=:customerId")
     /** Finds active shipment history for the supplied customer. */
     List<Shipment> history(@Param("customerId") Long customerId);
