@@ -22,6 +22,7 @@ public class AddressService extends CrudService<Address, AddressDTO> {
     @Override
     /** Creates a new Address entity instance for create requests. */
     protected Address newEntity() {
+        // Returns a blank Address instance that the copy method will populate.
         return new Address();
     }
 
