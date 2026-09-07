@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a carrier driver who can be assigned to delivery routes.
  */
+// Registers Driver as a persistent JPA entity.
 @Entity
 @Table(name = "driver", uniqueConstraints = @UniqueConstraint(columnNames = {"license_number"}))
 @Getter
