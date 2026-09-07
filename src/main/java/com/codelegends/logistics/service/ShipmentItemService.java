@@ -6,24 +6,31 @@ import com.codelegends.logistics.repository.*;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Applies CRUD persistence and DTO mapping for shipmentitem resources.
+ */
 @Service
 public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemDTO> {
+    /** Injects persistence access and shared rule validation for ShipmentItem resources. */
     public ShipmentItemService(
             ShipmentItemRepository repository, EntityAccess access, Rules rules) {
         super(repository, access, rules, ShipmentItem.class);
     }
 
     @Override
+    /** Creates a new ShipmentItem entity instance for create requests. */
     protected ShipmentItem newEntity() {
         return new ShipmentItem();
     }
 
     @Override
+    /** Converts the persisted ShipmentItem entity to its DTO representation. */
     protected ShipmentItemDTO toDTO(ShipmentItem entity) {
         return ShipmentItemDTO.convertToDTO(entity);
     }
 
     @Override
+    /** Copies validated DTO values and resolved relationships onto the ShipmentItem entity. */
     protected void copy(ShipmentItemDTO dto, ShipmentItem entity) {
         entity.setQuantity(dto.getQuantity());
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
