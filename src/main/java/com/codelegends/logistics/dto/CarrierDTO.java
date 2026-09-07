@@ -17,6 +17,7 @@ import java.util.List;
 @Data
 // Enables readable construction when services map entities into this DTO.
 @Builder
+// Provides the empty constructor required by JSON binding frameworks.
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarrierDTO {
