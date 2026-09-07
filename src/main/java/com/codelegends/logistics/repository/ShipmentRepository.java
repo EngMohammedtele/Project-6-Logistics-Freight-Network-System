@@ -11,6 +11,7 @@ import java.util.List;
  * Provides active-record persistence operations for shipment entities.
  */
 // Binds Shipment persistence to the shared active-record repository contract.
+// Uses Shipment as the aggregate root for inherited CRUD operations.
 public interface ShipmentRepository extends ActiveRepository<Shipment> {
 
     @Query("select s from Shipment s where s.isActive=true and s.status=:status")
