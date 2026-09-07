@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * Represents a shippable product with a SKU and weight.
  */
+// Registers Product as a persistent JPA entity.
 @Entity
 @Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = {"sku"}))
 @Getter
