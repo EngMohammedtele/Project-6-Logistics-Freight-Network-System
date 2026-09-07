@@ -16,6 +16,7 @@ public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemD
     /** Injects persistence access and shared rule validation for ShipmentItem resources. */
     public ShipmentItemService(
             ShipmentItemRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, ShipmentItem.class);
     }
 
