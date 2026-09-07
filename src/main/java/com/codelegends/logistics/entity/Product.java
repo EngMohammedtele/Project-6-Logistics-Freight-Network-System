@@ -13,6 +13,7 @@ import java.util.*;
  */
 // Registers Product as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for shippable product rows.
 @Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = {"sku"}))
 @Getter
 @Setter
