@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers Driver as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for carrier driver rows.
 @Table(name = "driver", uniqueConstraints = @UniqueConstraint(columnNames = {"license_number"}))
 @Getter
 @Setter
