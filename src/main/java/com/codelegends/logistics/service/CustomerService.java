@@ -29,6 +29,7 @@ public class CustomerService extends CrudService<Customer, CustomerDTO> {
     @Override
     /** Converts the persisted Customer entity to its DTO representation. */
     protected CustomerDTO toDTO(Customer entity) {
+        // Reuses the DTO mapper to expose persisted customer values to callers.
         return CustomerDTO.convertToDTO(entity);
     }
 
