@@ -8,5 +8,6 @@ public enum ShipmentStatus {
     CREATED,
     PICKED_UP,
     IN_TRANSIT,
+    // Indicates the shipment has reached its final delivery state.
     DELIVERED
 }
