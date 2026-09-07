@@ -40,6 +40,7 @@ public class AddressDTO {
     private String city;
 
     @NotBlank
+    // Keeps the postal code constrained to the accepted request shape.
     @Size(max = 20)
     /** Stores the postal code portion of the address. */
     private String postalCode;
