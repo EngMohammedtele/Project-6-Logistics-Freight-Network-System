@@ -54,6 +54,7 @@ public abstract class CrudService<E extends BaseClass, D> {
         repository.saveAndFlush(entity);
         // Applies derived-state updates after the entity is saved.
         rules.afterSave(entity);
+        // Returns the saved entity through the resource DTO mapper.
         return toDTO(entity);
     }
 
