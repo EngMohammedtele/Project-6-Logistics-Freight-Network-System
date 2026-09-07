@@ -13,6 +13,7 @@ import java.util.List;
  */
 // Binds Route persistence to the shared active-record repository contract.
 // Uses Route as the aggregate root for inherited CRUD operations.
+// Inherits Long-based identifier handling from ActiveRepository.
 public interface RouteRepository extends ActiveRepository<Route> {
 
     @Query(
