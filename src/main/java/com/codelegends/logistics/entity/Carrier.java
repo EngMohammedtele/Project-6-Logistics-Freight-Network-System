@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers Carrier as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for transport carrier rows.
 @Table(name = "carrier")
 @Getter
 @Setter
