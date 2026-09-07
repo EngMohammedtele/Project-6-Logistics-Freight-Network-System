@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for inventory item resources.
  */
+// Registers this class as the Spring service for inventory item workflows.
 @Service
 public class InventoryItemService extends CrudService<InventoryItem, InventoryItemDTO> {
     /** Injects persistence access and shared rule validation for InventoryItem resources. */
