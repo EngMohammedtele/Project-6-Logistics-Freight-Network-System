@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "carrier")
 // Generates read accessors for persisted transport carrier properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for transport carrier.
 @Setter
 @NoArgsConstructor
 public class Carrier extends BaseClass {
