@@ -35,6 +35,7 @@ public class CustomerDTO {
 
     @NotBlank
     @Size(max = 150)
+    // Documents the validation rule applied to the email.
     @Email
     // Allows email input during writes while keeping the value out of response payloads.
     // Accepts phone values for write requests while preventing response serialization.
