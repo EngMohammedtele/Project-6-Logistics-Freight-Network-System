@@ -47,6 +47,7 @@ public class RouteService extends CrudService<Route, RouteDTO> {
         entity.setStatus(dto.getStatus());
         // Resolves the vehicle assigned to this route.
         entity.setVehicle(access.get(Vehicle.class, dto.getVehicleId()));
+        // Resolves the driver assigned to this route.
         entity.setDriver(access.get(Driver.class, dto.getDriverId()));
     }
 }
