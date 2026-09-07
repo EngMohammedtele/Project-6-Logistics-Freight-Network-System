@@ -48,6 +48,7 @@ public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopD
         entity.setEta(dto.getEta());
         // Resolves the route that owns this delivery stop.
         entity.setRoute(access.get(Route.class, dto.getRouteId()));
+        // Resolves the shipment assigned to this stop.
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
     }
 }
