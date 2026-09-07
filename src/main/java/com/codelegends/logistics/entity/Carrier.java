@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for transport carrier rows.
 @Table(name = "carrier")
+// Generates read accessors for persisted transport carrier properties.
 @Getter
 @Setter
 @NoArgsConstructor
