@@ -9,4 +9,5 @@ import com.codelegends.logistics.entity.Carrier;
 // Uses Carrier as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for carrier database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface CarrierRepository extends ActiveRepository<Carrier> {}
