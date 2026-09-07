@@ -17,6 +17,7 @@ import java.util.*;
 @Table(name = "shipment")
 // Generates read accessors for persisted customer shipment properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for customer shipment.
 @Setter
 @NoArgsConstructor
 public class Shipment extends BaseClass {
