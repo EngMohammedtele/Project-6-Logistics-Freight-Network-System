@@ -7,7 +7,7 @@ import com.codelegends.logistics.repository.*;
 import org.springframework.stereotype.Service;
 
 /**
- * Applies CRUD persistence and DTO mapping for deliverystop resources.
+ * Applies CRUD persistence and DTO mapping for delivery stop resources.
  */
 @Service
 public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopDTO> {
