@@ -45,6 +45,7 @@ public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
         entity.setIssuedDate(dto.getIssuedDate());
         // Resolves the delivered shipment being billed.
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
+        // Resolves the customer responsible for payment.
         entity.setCustomer(access.get(Customer.class, dto.getCustomerId()));
     }
 }
