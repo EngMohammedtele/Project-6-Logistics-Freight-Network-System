@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for driver resources.
  */
+// Registers this class as the Spring service for driver workflows.
 @Service
 public class DriverService extends CrudService<Driver, DriverDTO> {
     /** Injects persistence access and shared rule validation for Driver resources. */
