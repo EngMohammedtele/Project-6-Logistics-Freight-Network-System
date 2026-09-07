@@ -24,5 +24,6 @@ public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, 
     List<E> findAllByIsActiveTrue();
 
     /** Looks up a single entity while excluding soft-deleted rows. */
+    // Combines identifier lookup with the active-row predicate.
     Optional<E> findByIdAndIsActiveTrue(Long id);
 }
