@@ -7,4 +7,5 @@ import com.codelegends.logistics.entity.Carrier;
  */
 // Binds Carrier persistence to the shared active-record repository contract.
 // Uses Carrier as the aggregate root for inherited CRUD operations.
+// Inherits Long-based identifier handling from ActiveRepository.
 public interface CarrierRepository extends ActiveRepository<Carrier> {}
