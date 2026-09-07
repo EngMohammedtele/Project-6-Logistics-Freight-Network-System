@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "route")
 // Generates read accessors for persisted delivery route properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for delivery route.
 @Setter
 @NoArgsConstructor
 public class Route extends BaseClass {
