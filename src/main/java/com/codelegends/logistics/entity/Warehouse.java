@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a storage location that holds inventory and dispatches shipments.
  */
+// Registers Warehouse as a persistent JPA entity.
 @Entity
 @Table(name = "warehouse")
 @Getter
