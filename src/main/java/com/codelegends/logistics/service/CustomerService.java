@@ -22,6 +22,7 @@ public class CustomerService extends CrudService<Customer, CustomerDTO> {
     @Override
     /** Creates a new Customer entity instance for create requests. */
     protected Customer newEntity() {
+        // Returns a blank Customer instance that the copy method will populate.
         return new Customer();
     }
 
