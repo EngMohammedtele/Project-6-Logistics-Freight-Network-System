@@ -18,6 +18,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for customer account.
 @Setter
+// Provides the default constructor required by JPA for customer account hydration.
 @NoArgsConstructor
 public class Customer extends BaseClass {
 
