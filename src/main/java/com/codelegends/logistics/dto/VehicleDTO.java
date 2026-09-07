@@ -28,6 +28,7 @@ public class VehicleDTO {
     /** Stores the vehicle plate number. */
     private String plateNumber;
 
+    /** Identifies the vehicle category used for fleet planning. */
     @NotNull private VehicleType type;
 
     @NotNull
@@ -36,8 +37,10 @@ public class VehicleDTO {
     /** Stores vehicle capacity in kilograms. */
     private BigDecimal capacityKg;
 
+    /** Tracks whether the vehicle is available, assigned, or in maintenance. */
     @NotNull private Availability status;
 
+    /** References the carrier that owns the vehicle. */
     @NotNull @Positive private Long carrierId;
 
     /** Maps a persisted entity into its API response representation. */
