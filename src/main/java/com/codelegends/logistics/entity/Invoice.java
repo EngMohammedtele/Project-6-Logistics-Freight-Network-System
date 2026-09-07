@@ -19,6 +19,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for shipment invoice.
 @Setter
+// Provides the default constructor required by JPA for shipment invoice hydration.
 @NoArgsConstructor
 public class Invoice extends BaseClass {
 
