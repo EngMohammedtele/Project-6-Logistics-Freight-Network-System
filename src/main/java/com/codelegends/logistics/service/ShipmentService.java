@@ -39,6 +39,7 @@ public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
     protected void copy(ShipmentDTO dto, Shipment entity) {
         // Copies the shipment creation timestamp from the DTO.
         entity.setShipmentDate(dto.getShipmentDate());
+        // Copies the current shipment lifecycle state.
         entity.setStatus(dto.getStatus());
         entity.setTotalWeight(dto.getTotalWeight());
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
