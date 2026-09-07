@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * Centralizes active-entity lookup and pessimistic locking for service workflows.
  */
+// Registers the lookup helper so services can share active-entity resolution.
 @Component
 public class EntityAccess {
     /** Entity manager used for active lookups and pessimistic locks. */
