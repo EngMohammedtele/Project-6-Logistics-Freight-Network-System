@@ -18,6 +18,7 @@ import java.util.*;
  * Coordinates multi-entity logistics workflows that go beyond simple CRUD operations.
  */
 @Service
+// Generates the constructor used for final workflow dependencies.
 @RequiredArgsConstructor
 @Transactional
 public class OperationsService {
