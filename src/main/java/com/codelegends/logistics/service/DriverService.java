@@ -39,6 +39,7 @@ public class DriverService extends CrudService<Driver, DriverDTO> {
     protected void copy(DriverDTO dto, Driver entity) {
         // Copies the driver name used in route assignment views.
         entity.setName(dto.getName());
+        // Copies the driver license number into the entity.
         entity.setLicenseNumber(dto.getLicenseNumber());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setStatus(dto.getStatus());
