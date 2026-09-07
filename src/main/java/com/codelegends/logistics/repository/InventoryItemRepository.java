@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Provides active-record persistence operations for inventory item entities.
  */
+// Binds InventoryItem persistence to the shared active-record repository contract.
 public interface InventoryItemRepository extends ActiveRepository<InventoryItem> {
 
     @Query("select i from InventoryItem i where i.isActive=true and i.quantity<:threshold")
