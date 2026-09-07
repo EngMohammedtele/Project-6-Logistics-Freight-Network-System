@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers TrackingEvent as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for shipment tracking event rows.
 @Table(name = "tracking_event")
 @Getter
 @Setter
