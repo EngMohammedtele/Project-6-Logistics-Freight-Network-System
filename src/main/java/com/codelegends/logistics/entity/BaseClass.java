@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 // Generates read accessors for inherited persistence metadata.
 @Getter
+// Generates write accessors used by JPA for inherited metadata fields.
 @Setter
 public abstract class BaseClass {
     @Id
