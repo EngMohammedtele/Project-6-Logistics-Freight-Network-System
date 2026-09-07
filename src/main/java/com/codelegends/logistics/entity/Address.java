@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers Address as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for customer address rows.
 @Table(name = "address")
 @Getter
 @Setter
