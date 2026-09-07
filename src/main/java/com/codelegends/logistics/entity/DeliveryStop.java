@@ -16,6 +16,7 @@ import java.util.*;
 @Table(
         name = "delivery_stop",
         uniqueConstraints = @UniqueConstraint(columnNames = {"route_id", "stop_sequence"}))
+// Generates read accessors for persisted delivery stop properties.
 @Getter
 @Setter
 @NoArgsConstructor
