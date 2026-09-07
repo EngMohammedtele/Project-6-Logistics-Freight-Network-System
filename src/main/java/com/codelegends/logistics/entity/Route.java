@@ -18,6 +18,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for delivery route.
 @Setter
+// Provides the default constructor required by JPA for delivery route hydration.
 @NoArgsConstructor
 public class Route extends BaseClass {
 
