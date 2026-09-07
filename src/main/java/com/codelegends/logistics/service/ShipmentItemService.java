@@ -36,6 +36,7 @@ public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemD
 
     @Override
     /** Copies validated DTO values and resolved relationships onto the ShipmentItem entity. */
+    // Maps request DTO fields onto the mutable ShipmentItem entity.
     protected void copy(ShipmentItemDTO dto, ShipmentItem entity) {
         entity.setQuantity(dto.getQuantity());
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
