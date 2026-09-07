@@ -41,6 +41,7 @@ public class RouteService extends CrudService<Route, RouteDTO> {
         entity.setRouteDate(dto.getRouteDate());
         // Copies the route origin location.
         entity.setOrigin(dto.getOrigin());
+        // Copies the route destination location.
         entity.setDestination(dto.getDestination());
         entity.setStatus(dto.getStatus());
         entity.setVehicle(access.get(Vehicle.class, dto.getVehicleId()));
