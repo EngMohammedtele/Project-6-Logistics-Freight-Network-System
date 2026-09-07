@@ -18,6 +18,7 @@ public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, 
     /** Returns only entities that have not been soft deleted. */
     // Uses a Spring Data derived query based on the inherited isActive flag.
     // Returns a list because multiple active rows can match the filter.
+    // Keeps soft-deleted rows out of standard list responses.
     List<E> findAllByIsActiveTrue();
 
     /** Looks up a single entity while excluding soft-deleted rows. */
