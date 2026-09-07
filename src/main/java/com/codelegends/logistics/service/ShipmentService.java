@@ -47,6 +47,7 @@ public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
         // Resolves the customer that owns the shipment.
         entity.setCustomer(access.get(Customer.class, dto.getCustomerId()));
+        // Resolves the carrier assigned to transport the shipment.
         entity.setCarrier(access.get(Carrier.class, dto.getCarrierId()));
     }
 }
