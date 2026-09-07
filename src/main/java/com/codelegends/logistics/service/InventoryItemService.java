@@ -16,6 +16,7 @@ public class InventoryItemService extends CrudService<InventoryItem, InventoryIt
     /** Injects persistence access and shared rule validation for InventoryItem resources. */
     public InventoryItemService(
             InventoryItemRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, InventoryItem.class);
     }
 
