@@ -38,6 +38,7 @@ public class StaffDTO {
     /** Accepts the phone number during write operations while keeping it out of responses. */
     private String phoneNumber;
 
+    /** References the warehouse where the staff member works. */
     @NotNull @Positive private Long warehouseId;
 
     /** Maps a persisted entity into its API response representation. */
