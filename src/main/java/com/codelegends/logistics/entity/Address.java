@@ -18,6 +18,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for customer address.
 @Setter
+// Provides the default constructor required by JPA for customer address hydration.
 @NoArgsConstructor
 public class Address extends BaseClass {
 
