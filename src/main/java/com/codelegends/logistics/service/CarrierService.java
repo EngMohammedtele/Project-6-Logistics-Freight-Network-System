@@ -43,6 +43,7 @@ public class CarrierService extends CrudService<Carrier, CarrierDTO> {
         entity.setContactEmail(dto.getContactEmail());
         // Copies the carrier phone number into persisted contact data.
         entity.setPhoneNumber(dto.getPhoneNumber());
+        // Copies the carrier country used for coverage reporting.
         entity.setCountry(dto.getCountry());
     }
 }
