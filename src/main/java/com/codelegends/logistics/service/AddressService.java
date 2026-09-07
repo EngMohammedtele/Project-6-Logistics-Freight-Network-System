@@ -6,23 +6,30 @@ import com.codelegends.logistics.repository.*;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Applies CRUD persistence and DTO mapping for address resources.
+ */
 @Service
 public class AddressService extends CrudService<Address, AddressDTO> {
+    /** Injects persistence access and shared rule validation for Address resources. */
     public AddressService(AddressRepository repository, EntityAccess access, Rules rules) {
         super(repository, access, rules, Address.class);
     }
 
     @Override
+    /** Creates a new Address entity instance for create requests. */
     protected Address newEntity() {
         return new Address();
     }
 
     @Override
+    /** Converts the persisted Address entity to its DTO representation. */
     protected AddressDTO toDTO(Address entity) {
         return AddressDTO.convertToDTO(entity);
     }
 
     @Override
+    /** Copies validated DTO values and resolved relationships onto the Address entity. */
     protected void copy(AddressDTO dto, Address entity) {
         entity.setStreet(dto.getStreet());
         entity.setCity(dto.getCity());
