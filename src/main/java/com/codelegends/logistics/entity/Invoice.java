@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * Represents a billing record generated for a delivered shipment.
  */
+// Registers Invoice as a persistent JPA entity.
 @Entity
 @Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = {"shipment_id"}))
 @Getter
