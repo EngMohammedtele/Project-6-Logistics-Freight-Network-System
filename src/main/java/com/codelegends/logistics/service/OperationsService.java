@@ -14,20 +14,32 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Coordinates multi-entity logistics workflows that go beyond simple CRUD operations.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class OperationsService {
+    /** Resolves and locks active entities used by workflow operations. */
     private final EntityAccess access;
+    /** Applies business constraints during workflow transitions. */
     private final Rules rules;
+    /** Creates shipment line items while reusing item-level validation. */
     private final ShipmentItemService items;
+    /** Creates route records through the standard route service. */
     private final RouteService routes;
+    /** Creates delivery stops through the standard stop service. */
     private final DeliveryStopService stops;
+    /** Creates tracking events through the standard tracking service. */
     private final TrackingEventService events;
+    /** Creates invoices through the standard invoice service. */
     private final InvoiceService invoices;
 
+    /** Entity manager used for direct persistence and aggregate workflow checks. */
     @PersistenceContext private EntityManager em;
 
+    /** Creates a shipment, persists its items, and returns the created shipment DTO. */
     public ShipmentDTO createShipment(Operations.CreateShipment dto) {
         Shipment s = new Shipment();
         s.setWarehouse(access.lock(Warehouse.class, dto.warehouseId()));
@@ -51,6 +63,7 @@ public class OperationsService {
         return ShipmentDTO.convertToDTO(s);
     }
 
+    /** Reassigns a carrier only while the shipment is still unplanned. */
     public ShipmentDTO assign(Long id, Operations.AssignCarrier dto) {
         Shipment s = access.lock(Shipment.class, id);
         rules.require(
@@ -69,6 +82,7 @@ public class OperationsService {
         return ShipmentDTO.convertToDTO(s);
     }
 
+    /** Delegates planned route creation to the route service. */
     public RouteDTO build(Operations.BuildRoute dto) {
         return routes.create(
                 RouteDTO.builder()
@@ -81,6 +95,7 @@ public class OperationsService {
                         .build());
     }
 
+    /** Creates a pending stop on the selected route. */
     public DeliveryStopDTO addStop(Long routeId, Operations.Stop dto) {
         return stops.create(
                 DeliveryStopDTO.builder()
@@ -93,6 +108,7 @@ public class OperationsService {
                         .build());
     }
 
+    /** Locks the shipment before recording a tracking event for it. */
     public TrackingEventDTO track(Long shipmentId, Operations.Track dto) {
         access.lock(Shipment.class, shipmentId);
         return events.create(
@@ -105,6 +121,7 @@ public class OperationsService {
                         .build());
     }
 
+    /** Completes a delivery stop and updates route resource availability. */
     public DeliveryStopDTO complete(Long id) {
         DeliveryStop d = access.lock(DeliveryStop.class, id);
         Route r = access.lock(Route.class, d.getRoute().getId());
@@ -137,6 +154,7 @@ public class OperationsService {
         return DeliveryStopDTO.convertToDTO(d);
     }
 
+    /** Creates an unpaid invoice owned by the shipment customer. */
     public InvoiceDTO invoice(Long shipmentId, Operations.GenerateInvoice dto) {
         Shipment s = access.lock(Shipment.class, shipmentId);
         return invoices.create(
