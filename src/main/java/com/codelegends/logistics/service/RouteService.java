@@ -6,23 +6,30 @@ import com.codelegends.logistics.repository.*;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Applies CRUD persistence and DTO mapping for route resources.
+ */
 @Service
 public class RouteService extends CrudService<Route, RouteDTO> {
+    /** Injects persistence access and shared rule validation for Route resources. */
     public RouteService(RouteRepository repository, EntityAccess access, Rules rules) {
         super(repository, access, rules, Route.class);
     }
 
     @Override
+    /** Creates a new Route entity instance for create requests. */
     protected Route newEntity() {
         return new Route();
     }
 
     @Override
+    /** Converts the persisted Route entity to its DTO representation. */
     protected RouteDTO toDTO(Route entity) {
         return RouteDTO.convertToDTO(entity);
     }
 
     @Override
+    /** Copies validated DTO values and resolved relationships onto the Route entity. */
     protected void copy(RouteDTO dto, Route entity) {
         entity.setRouteDate(dto.getRouteDate());
         entity.setOrigin(dto.getOrigin());
