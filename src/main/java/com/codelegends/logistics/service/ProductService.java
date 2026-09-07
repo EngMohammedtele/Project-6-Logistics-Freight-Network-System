@@ -37,6 +37,7 @@ public class ProductService extends CrudService<Product, ProductDTO> {
     /** Copies validated DTO values and resolved relationships onto the Product entity. */
     // Maps request DTO fields onto the mutable Product entity.
     protected void copy(ProductDTO dto, Product entity) {
+        // Copies the product name used in catalog responses.
         entity.setName(dto.getName());
         entity.setSku(dto.getSku());
         entity.setWeightKg(dto.getWeightKg());
