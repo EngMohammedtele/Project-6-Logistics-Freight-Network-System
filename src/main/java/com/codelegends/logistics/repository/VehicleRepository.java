@@ -20,6 +20,7 @@ import java.util.List;
 public interface VehicleRepository extends ActiveRepository<Vehicle> {
 
     // Executes a custom JPQL query instead of relying only on method-name derivation.
+    // Filters active vehicles by availability status.
     @Query("select v from Vehicle v where v.isActive=true and v.status=:status")
     /** Finds active vehicles matching the requested availability status. */
     List<Vehicle> available(@Param("status") Availability status);
