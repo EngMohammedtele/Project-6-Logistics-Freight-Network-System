@@ -38,6 +38,7 @@ public class DeliveryStopDTO {
     private String address;
 
     /** Tracks whether the stop is still pending or complete. */
+    // Keeps the status constrained to the accepted request shape.
     @NotNull private StopStatus status;
 
     /** Provides the expected arrival timestamp for the stop. */
