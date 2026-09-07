@@ -30,6 +30,7 @@ public class InventoryItemService extends CrudService<InventoryItem, InventoryIt
     @Override
     /** Converts the persisted InventoryItem entity to its DTO representation. */
     protected InventoryItemDTO toDTO(InventoryItem entity) {
+        // Reuses the DTO mapper to expose persisted inventory item values to callers.
         return InventoryItemDTO.convertToDTO(entity);
     }
 
