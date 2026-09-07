@@ -50,6 +50,7 @@ public class DriverDTO {
     private String phoneNumber;
 
     /** Tracks whether the driver is available, assigned, or unavailable for maintenance. */
+    // Keeps the status constrained to the accepted request shape.
     @NotNull private Availability status;
 
     /** References the carrier that employs the driver. */
