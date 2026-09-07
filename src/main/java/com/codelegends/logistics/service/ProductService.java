@@ -6,23 +6,30 @@ import com.codelegends.logistics.repository.*;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Applies CRUD persistence and DTO mapping for product resources.
+ */
 @Service
 public class ProductService extends CrudService<Product, ProductDTO> {
+    /** Injects persistence access and shared rule validation for Product resources. */
     public ProductService(ProductRepository repository, EntityAccess access, Rules rules) {
         super(repository, access, rules, Product.class);
     }
 
     @Override
+    /** Creates a new Product entity instance for create requests. */
     protected Product newEntity() {
         return new Product();
     }
 
     @Override
+    /** Converts the persisted Product entity to its DTO representation. */
     protected ProductDTO toDTO(Product entity) {
         return ProductDTO.convertToDTO(entity);
     }
 
     @Override
+    /** Copies validated DTO values and resolved relationships onto the Product entity. */
     protected void copy(ProductDTO dto, Product entity) {
         entity.setName(dto.getName());
         entity.setSku(dto.getSku());
