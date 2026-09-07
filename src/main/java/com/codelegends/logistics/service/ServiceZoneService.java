@@ -7,7 +7,7 @@ import com.codelegends.logistics.repository.*;
 import org.springframework.stereotype.Service;
 
 /**
- * Applies CRUD persistence and DTO mapping for servicezone resources.
+ * Applies CRUD persistence and DTO mapping for service zone resources.
  */
 @Service
 public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO> {
