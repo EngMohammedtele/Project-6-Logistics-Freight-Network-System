@@ -41,6 +41,7 @@ public class AddressService extends CrudService<Address, AddressDTO> {
         entity.setStreet(dto.getStreet());
         // Copies the city value used for address persistence.
         entity.setCity(dto.getCity());
+        // Copies the postal code used by service-zone address records.
         entity.setPostalCode(dto.getPostalCode());
         entity.setCountry(dto.getCountry());
         entity.setCustomer(access.get(Customer.class, dto.getCustomerId()));
