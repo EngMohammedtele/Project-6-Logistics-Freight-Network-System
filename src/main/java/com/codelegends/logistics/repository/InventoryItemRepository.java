@@ -14,6 +14,7 @@ import java.util.List;
 // Uses InventoryItem as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for inventory item database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface InventoryItemRepository extends ActiveRepository<InventoryItem> {
 
     @Query("select i from InventoryItem i where i.isActive=true and i.quantity<:threshold")
