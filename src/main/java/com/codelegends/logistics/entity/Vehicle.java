@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * Represents a carrier vehicle that can be assigned to routes.
  */
+// Registers Vehicle as a persistent JPA entity.
 @Entity
 @Table(name = "vehicle", uniqueConstraints = @UniqueConstraint(columnNames = {"plate_number"}))
 @Getter
