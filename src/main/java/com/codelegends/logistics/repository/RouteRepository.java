@@ -32,5 +32,6 @@ public interface RouteRepository extends ActiveRepository<Route> {
     // Returns a list to support multiple route assignments on the same date.
     // Binds the driver id argument into the JPQL route assignment predicate.
     // Binds the requested route date into the JPQL schedule predicate.
+    // Keeps route scheduling queries tied to the supplied operating date.
     List<Route> forDriver(@Param("driverId") Long driverId, @Param("date") LocalDate date);
 }
