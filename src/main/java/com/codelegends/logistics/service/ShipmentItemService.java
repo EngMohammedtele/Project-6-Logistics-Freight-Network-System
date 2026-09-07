@@ -42,6 +42,7 @@ public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemD
         entity.setQuantity(dto.getQuantity());
         // Resolves the shipment that owns this line item.
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
+        // Resolves the product included in the shipment line.
         entity.setProduct(access.get(Product.class, dto.getProductId()));
     }
 }
