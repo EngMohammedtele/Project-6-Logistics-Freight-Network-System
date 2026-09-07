@@ -29,6 +29,7 @@ public class CarrierService extends CrudService<Carrier, CarrierDTO> {
     @Override
     /** Converts the persisted Carrier entity to its DTO representation. */
     protected CarrierDTO toDTO(Carrier entity) {
+        // Reuses the DTO mapper to expose persisted carrier values to callers.
         return CarrierDTO.convertToDTO(entity);
     }
 
