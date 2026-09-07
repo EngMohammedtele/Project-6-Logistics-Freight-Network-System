@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a staff member assigned to a warehouse.
  */
+// Registers Staff as a persistent JPA entity.
 @Entity
 @Table(name = "staff")
 @Getter
