@@ -22,6 +22,7 @@ public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
     @Override
     /** Creates a new Vehicle entity instance for create requests. */
     protected Vehicle newEntity() {
+        // Returns a blank Vehicle instance that the copy method will populate.
         return new Vehicle();
     }
 
