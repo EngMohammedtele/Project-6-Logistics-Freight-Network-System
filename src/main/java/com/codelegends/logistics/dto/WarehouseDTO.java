@@ -32,6 +32,7 @@ public class WarehouseDTO {
     /** Stores where the tracking event was recorded. */
     private String location;
 
+    /** Defines the warehouse inventory capacity used by stock validation. */
     @NotNull @Positive private Integer capacity;
 
     /** Maps a persisted entity into its API response representation. */
