@@ -22,6 +22,7 @@ public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO>
     @Override
     /** Creates a new ServiceZone entity instance for create requests. */
     protected ServiceZone newEntity() {
+        // Returns a blank ServiceZone instance that the copy method will populate.
         return new ServiceZone();
     }
 
