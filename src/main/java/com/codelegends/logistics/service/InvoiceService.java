@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for invoice resources.
  */
+// Registers this class as the Spring service for invoice workflows.
 @Service
 public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
     /** Injects persistence access and shared rule validation for Invoice resources. */
