@@ -45,6 +45,7 @@ public class DriverService extends CrudService<Driver, DriverDTO> {
         entity.setPhoneNumber(dto.getPhoneNumber());
         // Copies the driver availability state.
         entity.setStatus(dto.getStatus());
+        // Resolves the carrier that employs the driver.
         entity.setCarrier(access.get(Carrier.class, dto.getCarrierId()));
     }
 }
