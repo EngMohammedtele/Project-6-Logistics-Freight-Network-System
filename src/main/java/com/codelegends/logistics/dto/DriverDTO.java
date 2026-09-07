@@ -43,6 +43,7 @@ public class DriverDTO {
     private String licenseNumber;
 
     @NotBlank
+    // Validates the phone number before the value is passed to service logic.
     @Size(max = 20)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     /** Accepts the phone number during write operations while keeping it out of responses. */
