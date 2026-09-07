@@ -44,6 +44,7 @@ public class TrackingEventService extends CrudService<TrackingEvent, TrackingEve
         entity.setLocation(dto.getLocation());
         // Copies the shipment status reported by the tracking event.
         entity.setStatus(dto.getStatus());
+        // Copies the human-readable note for the tracking event.
         entity.setNote(dto.getNote());
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
     }
