@@ -19,6 +19,7 @@ import java.util.List;
 // Delegates standard persistence behavior to Spring Data JPA.
 public interface VehicleRepository extends ActiveRepository<Vehicle> {
 
+    // Executes a custom JPQL query instead of relying only on method-name derivation.
     @Query("select v from Vehicle v where v.isActive=true and v.status=:status")
     /** Finds active vehicles matching the requested availability status. */
     List<Vehicle> available(@Param("status") Availability status);
