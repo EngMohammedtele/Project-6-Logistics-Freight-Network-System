@@ -29,6 +29,7 @@ public class StaffService extends CrudService<Staff, StaffDTO> {
     @Override
     /** Converts the persisted Staff entity to its DTO representation. */
     protected StaffDTO toDTO(Staff entity) {
+        // Reuses the DTO mapper to expose persisted staff values to callers.
         return StaffDTO.convertToDTO(entity);
     }
 
