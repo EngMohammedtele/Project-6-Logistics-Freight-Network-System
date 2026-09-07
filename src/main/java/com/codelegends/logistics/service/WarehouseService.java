@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for warehouse resources.
  */
+// Registers this class as the Spring service for warehouse workflows.
 @Service
 public class WarehouseService extends CrudService<Warehouse, WarehouseDTO> {
     /** Injects persistence access and shared rule validation for Warehouse resources. */
