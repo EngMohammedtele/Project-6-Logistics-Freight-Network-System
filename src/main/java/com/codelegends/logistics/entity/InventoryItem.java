@@ -16,6 +16,7 @@ import java.util.*;
 @Table(
         name = "inventory_item",
         uniqueConstraints = @UniqueConstraint(columnNames = {"warehouse_id", "product_id"}))
+// Generates read accessors for persisted warehouse inventory item properties.
 @Getter
 @Setter
 @NoArgsConstructor
