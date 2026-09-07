@@ -24,6 +24,7 @@ public interface ShipmentRepository extends ActiveRepository<Shipment> {
     @Query("select s from Shipment s where s.isActive=true and s.status=:status")
     /** Finds active shipments currently in the requested status. */
     // Returns shipments currently matching the supplied lifecycle state.
+    // Supports operational dashboards that group shipments by status.
     List<Shipment> byStatus(@Param("status") ShipmentStatus status);
 
     @Query("select s from Shipment s where s.isActive=true and s.customer.id=:customerId")
