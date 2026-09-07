@@ -52,6 +52,7 @@ public abstract class CrudService<E extends BaseClass, D> {
         rules.beforeSave(entity, true);
         // Persists and flushes the entity so database constraints surface immediately.
         repository.saveAndFlush(entity);
+        // Applies derived-state updates after the entity is saved.
         rules.afterSave(entity);
         return toDTO(entity);
     }
