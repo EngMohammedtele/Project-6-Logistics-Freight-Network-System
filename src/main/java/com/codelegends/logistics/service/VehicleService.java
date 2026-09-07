@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for vehicle workflows.
 @Service
+// Specializes the shared CRUD workflow for Vehicle entities and DTOs.
 public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
     /** Injects persistence access and shared rule validation for Vehicle resources. */
     public VehicleService(VehicleRepository repository, EntityAccess access, Rules rules) {
