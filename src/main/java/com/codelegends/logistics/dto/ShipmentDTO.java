@@ -20,6 +20,7 @@ import java.util.List;
 @Builder
 // Provides the empty constructor required by JSON binding frameworks.
 @NoArgsConstructor
+// Provides a full-value constructor for tests and controlled DTO creation.
 @AllArgsConstructor
 public class ShipmentDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
