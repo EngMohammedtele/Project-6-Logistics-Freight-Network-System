@@ -46,6 +46,7 @@ public abstract class CrudService<E extends BaseClass, D> {
     public D create(D dto) {
         // Starts creation with a blank entity supplied by the concrete service.
         E entity = newEntity();
+        // Applies incoming DTO values before save-time validation runs.
         copy(dto, entity);
         rules.beforeSave(entity, true);
         repository.saveAndFlush(entity);
