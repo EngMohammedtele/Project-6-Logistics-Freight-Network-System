@@ -39,6 +39,7 @@ public class ProductService extends CrudService<Product, ProductDTO> {
     protected void copy(ProductDTO dto, Product entity) {
         // Copies the product name used in catalog responses.
         entity.setName(dto.getName());
+        // Copies the stock keeping unit into the product entity.
         entity.setSku(dto.getSku());
         entity.setWeightKg(dto.getWeightKg());
         entity.setCategory(dto.getCategory());
