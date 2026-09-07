@@ -13,6 +13,7 @@ import java.util.*;
  */
 // Registers Invoice as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for shipment invoice rows.
 @Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = {"shipment_id"}))
 @Getter
 @Setter
