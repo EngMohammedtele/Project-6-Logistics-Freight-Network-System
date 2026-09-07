@@ -34,5 +34,6 @@ public interface ShipmentRepository extends ActiveRepository<Shipment> {
     @Query("select s from Shipment s where s.isActive=true and s.customer.id=:customerId")
     /** Finds active shipment history for the supplied customer. */
     // Returns active shipment history for one customer account.
+    // Uses the customer id as the ownership criterion for history lookups.
     List<Shipment> history(@Param("customerId") Long customerId);
 }
