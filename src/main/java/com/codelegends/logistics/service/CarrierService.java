@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for carrier workflows.
 @Service
+// Specializes the shared CRUD workflow for Carrier entities and DTOs.
 public class CarrierService extends CrudService<Carrier, CarrierDTO> {
     /** Injects persistence access and shared rule validation for Carrier resources. */
     public CarrierService(CarrierRepository repository, EntityAccess access, Rules rules) {
