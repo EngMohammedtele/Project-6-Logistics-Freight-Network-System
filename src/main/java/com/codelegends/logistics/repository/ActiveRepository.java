@@ -13,6 +13,7 @@ import java.util.Optional;
 // Defines common active-record queries for all soft-deletable entities.
 // Restricts the generic entity type to BaseClass so active and audit fields are available.
 // Extends JpaRepository to inherit save, delete, and identifier-based lookup operations.
+// Uses Long as the shared primary-key type for logistics entities.
 public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, Long> {
     /** Returns only entities that have not been soft deleted. */
     List<E> findAllByIsActiveTrue();
