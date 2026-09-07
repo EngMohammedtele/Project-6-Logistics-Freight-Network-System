@@ -43,6 +43,7 @@ public class CustomerService extends CrudService<Customer, CustomerDTO> {
         entity.setEmail(dto.getEmail());
         // Copies the customer phone number into the entity.
         entity.setPhoneNumber(dto.getPhoneNumber());
+        // Copies the customer account classification.
         entity.setType(dto.getType());
     }
 }
