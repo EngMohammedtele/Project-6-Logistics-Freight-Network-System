@@ -24,6 +24,7 @@ public abstract class CrudService<E extends BaseClass, D> {
     private final Class<E> type;
 
     /** Wires the shared dependencies needed by concrete CRUD services. */
+    // Receives concrete dependencies from each resource-specific service.
     protected CrudService(
             ActiveRepository<E> repository, EntityAccess access, Rules rules, Class<E> type) {
         this.repository = repository;
