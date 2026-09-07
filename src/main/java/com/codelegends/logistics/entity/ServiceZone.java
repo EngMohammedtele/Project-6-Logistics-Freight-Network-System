@@ -13,6 +13,7 @@ import java.util.*;
  */
 // Registers ServiceZone as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for service zone rows.
 @Table(name = "service_zone")
 @Getter
 @Setter
