@@ -17,6 +17,7 @@ import java.util.*;
 @Table(name = "service_zone")
 // Generates read accessors for persisted service zone properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for service zone.
 @Setter
 @NoArgsConstructor
 public class ServiceZone extends BaseClass {
