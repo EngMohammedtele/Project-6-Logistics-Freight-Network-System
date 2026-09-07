@@ -11,7 +11,7 @@ import java.time.*;
 import java.util.List;
 
 /**
- * Transfers shipmentitem data between API clients and the service layer.
+ * Transfers shipment item data between API clients and the service layer.
  */
 @Data
 @Builder
