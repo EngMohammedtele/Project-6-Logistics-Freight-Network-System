@@ -22,6 +22,7 @@ public class RouteService extends CrudService<Route, RouteDTO> {
     @Override
     /** Creates a new Route entity instance for create requests. */
     protected Route newEntity() {
+        // Returns a blank Route instance that the copy method will populate.
         return new Route();
     }
 
