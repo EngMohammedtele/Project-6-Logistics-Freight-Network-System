@@ -15,6 +15,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Provides read-only reporting and lookup operations backed by repository queries and aggregate JPQL.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -27,34 +30,41 @@ public class QueryService {
     private final EntityAccess access;
     @PersistenceContext private EntityManager em;
 
+    /** Maps active shipments with the requested status into DTOs. */
     public List<ShipmentDTO> status(ShipmentStatus status) {
         return ShipmentDTO.convertToDTO(shipments.byStatus(status));
     }
 
+    /** Validates the threshold and returns low-stock inventory records. */
     public List<InventoryItemDTO> below(Integer threshold) {
         if (threshold < 0) throw new IllegalArgumentException("Threshold must be nonnegative");
         return InventoryItemDTO.convertToDTO(inventory.below(threshold));
     }
 
+    /** Verifies the driver exists before returning matching routes. */
     public List<RouteDTO> driver(Long id, LocalDate date) {
         access.get(Driver.class, id);
         return RouteDTO.convertToDTO(routes.forDriver(id, date));
     }
 
+    /** Returns vehicles currently marked available. */
     public List<VehicleDTO> available() {
         return VehicleDTO.convertToDTO(vehicles.available(Availability.AVAILABLE));
     }
 
+    /** Verifies the customer exists before returning shipment history. */
     public List<ShipmentDTO> history(Long id) {
         access.get(Customer.class, id);
         return ShipmentDTO.convertToDTO(shipments.history(id));
     }
 
+    /** Verifies the customer exists before returning unpaid invoices. */
     public List<InvoiceDTO> unpaid(Long id) {
         access.get(Customer.class, id);
         return InvoiceDTO.convertToDTO(invoices.unpaid(id, InvoiceStatus.UNPAID));
     }
 
+    /** Aggregates shipment and inventory statistics for a warehouse. */
     public StatsDTO warehouse(Long id) {
         access.get(Warehouse.class, id);
         long shipments =
@@ -70,6 +80,7 @@ public class QueryService {
         return StatsDTO.builder().id(id).activeShipments(shipments).inventoryUnits(units).build();
     }
 
+    /** Aggregates shipment, vehicle, driver, route, and invoice statistics for a carrier. */
     public StatsDTO carrier(Long id) {
         access.get(Carrier.class, id);
         return StatsDTO.builder()
@@ -92,6 +103,7 @@ public class QueryService {
                 .build();
     }
 
+    /** Aggregates shipment and invoice totals for a customer. */
     public StatsDTO customer(Long id) {
         access.get(Customer.class, id);
         BigDecimal total =
@@ -104,6 +116,7 @@ public class QueryService {
         return StatsDTO.builder().id(id).totalInvoiced(total).build();
     }
 
+    /** Executes a count query using a shared ID parameter. */
     private long count(String query, Long id) {
         return em.createQuery(query, Long.class).setParameter("id", id).getSingleResult();
     }
