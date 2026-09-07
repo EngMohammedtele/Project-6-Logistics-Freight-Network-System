@@ -24,5 +24,6 @@ public interface InventoryItemRepository extends ActiveRepository<InventoryItem>
     @Query("select i from InventoryItem i where i.isActive=true and i.quantity<:threshold")
     /** Finds active inventory records below the supplied quantity threshold. */
     // Returns every active inventory item that should be considered low stock.
+    // Uses the threshold argument as the upper bound for matching quantities.
     List<InventoryItem> below(@Param("threshold") Integer threshold);
 }
