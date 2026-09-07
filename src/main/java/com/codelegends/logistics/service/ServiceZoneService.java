@@ -37,6 +37,7 @@ public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO>
     /** Copies validated DTO values and resolved relationships onto the ServiceZone entity. */
     // Maps request DTO fields onto the mutable ServiceZone entity.
     protected void copy(ServiceZoneDTO dto, ServiceZone entity) {
+        // Copies the service zone display name.
         entity.setName(dto.getName());
         entity.setRegion(dto.getRegion());
         entity.setBaseRate(dto.getBaseRate());
