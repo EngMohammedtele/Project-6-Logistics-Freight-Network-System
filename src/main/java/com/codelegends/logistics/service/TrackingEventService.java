@@ -30,6 +30,7 @@ public class TrackingEventService extends CrudService<TrackingEvent, TrackingEve
     @Override
     /** Converts the persisted TrackingEvent entity to its DTO representation. */
     protected TrackingEventDTO toDTO(TrackingEvent entity) {
+        // Reuses the DTO mapper to expose persisted tracking event values to callers.
         return TrackingEventDTO.convertToDTO(entity);
     }
 
