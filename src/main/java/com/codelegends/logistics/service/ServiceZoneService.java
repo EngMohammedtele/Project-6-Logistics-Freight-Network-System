@@ -39,6 +39,7 @@ public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO>
     protected void copy(ServiceZoneDTO dto, ServiceZone entity) {
         // Copies the service zone display name.
         entity.setName(dto.getName());
+        // Copies the geographic region served by the zone.
         entity.setRegion(dto.getRegion());
         entity.setBaseRate(dto.getBaseRate());
     }
