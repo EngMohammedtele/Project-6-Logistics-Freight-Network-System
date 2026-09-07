@@ -45,6 +45,7 @@ public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
         entity.setTotalWeight(dto.getTotalWeight());
         // Resolves the warehouse dispatching the shipment.
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
+        // Resolves the customer that owns the shipment.
         entity.setCustomer(access.get(Customer.class, dto.getCustomerId()));
         entity.setCarrier(access.get(Carrier.class, dto.getCarrierId()));
     }
