@@ -18,6 +18,7 @@ import java.util.*;
         uniqueConstraints = @UniqueConstraint(columnNames = {"route_id", "stop_sequence"}))
 // Generates read accessors for persisted delivery stop properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for delivery stop.
 @Setter
 @NoArgsConstructor
 public class DeliveryStop extends BaseClass {
