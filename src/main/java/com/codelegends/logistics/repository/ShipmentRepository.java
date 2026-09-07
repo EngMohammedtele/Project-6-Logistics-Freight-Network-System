@@ -19,6 +19,7 @@ import java.util.List;
 // Delegates standard persistence behavior to Spring Data JPA.
 public interface ShipmentRepository extends ActiveRepository<Shipment> {
 
+    // Executes a custom JPQL query instead of relying only on method-name derivation.
     @Query("select s from Shipment s where s.isActive=true and s.status=:status")
     /** Finds active shipments currently in the requested status. */
     List<Shipment> byStatus(@Param("status") ShipmentStatus status);
