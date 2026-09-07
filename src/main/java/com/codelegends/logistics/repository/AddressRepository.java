@@ -9,4 +9,5 @@ import com.codelegends.logistics.entity.Address;
 // Uses Address as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for address database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface AddressRepository extends ActiveRepository<Address> {}
