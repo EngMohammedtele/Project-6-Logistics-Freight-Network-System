@@ -24,5 +24,6 @@ public interface VehicleRepository extends ActiveRepository<Vehicle> {
     @Query("select v from Vehicle v where v.isActive=true and v.status=:status")
     /** Finds active vehicles matching the requested availability status. */
     // Returns vehicles that match the requested assignment readiness state.
+    // Supports dispatch selection by narrowing the fleet to a status value.
     List<Vehicle> available(@Param("status") Availability status);
 }
