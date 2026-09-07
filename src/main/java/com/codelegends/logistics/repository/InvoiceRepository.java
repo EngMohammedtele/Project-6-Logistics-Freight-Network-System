@@ -4,6 +4,7 @@ import com.codelegends.logistics.entity.*;
 
 // Imports Query so the repository can declare explicit JPQL statements.
 import org.springframework.data.jpa.repository.Query;
+// Imports Param to bind method arguments into named JPQL parameters.
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
