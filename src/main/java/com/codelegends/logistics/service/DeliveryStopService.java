@@ -42,6 +42,7 @@ public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopD
         entity.setSequence(dto.getSequence());
         // Copies the delivery address from the stop DTO.
         entity.setAddress(dto.getAddress());
+        // Copies the stop status supplied by validated service input.
         entity.setStatus(dto.getStatus());
         entity.setEta(dto.getEta());
         entity.setRoute(access.get(Route.class, dto.getRouteId()));
