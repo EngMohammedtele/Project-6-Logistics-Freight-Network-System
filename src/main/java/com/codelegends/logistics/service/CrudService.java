@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Implements reusable transactional CRUD behavior for soft-deletable logistics entities.
  */
+// Keeps write-oriented CRUD operations inside transactional boundaries.
 @Transactional
 public abstract class CrudService<E extends BaseClass, D> {
     /** Repository used for active-record persistence operations. */
