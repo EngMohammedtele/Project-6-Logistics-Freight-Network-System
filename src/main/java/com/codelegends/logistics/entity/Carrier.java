@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a logistics carrier that owns vehicles, drivers, and shipments.
  */
+// Registers Carrier as a persistent JPA entity.
 @Entity
 @Table(name = "carrier")
 @Getter
