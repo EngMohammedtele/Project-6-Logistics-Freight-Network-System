@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for shipment workflows.
 @Service
+// Specializes the shared CRUD workflow for Shipment entities and DTOs.
 public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
     /** Injects persistence access and shared rule validation for Shipment resources. */
     public ShipmentService(ShipmentRepository repository, EntityAccess access, Rules rules) {
