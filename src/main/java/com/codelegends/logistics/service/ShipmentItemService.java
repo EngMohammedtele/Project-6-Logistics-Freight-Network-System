@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for shipment item resources.
  */
+// Registers this class as the Spring service for shipment item workflows.
 @Service
 public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemDTO> {
     /** Injects persistence access and shared rule validation for ShipmentItem resources. */
