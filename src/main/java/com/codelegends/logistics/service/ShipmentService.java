@@ -41,6 +41,7 @@ public class ShipmentService extends CrudService<Shipment, ShipmentDTO> {
         entity.setShipmentDate(dto.getShipmentDate());
         // Copies the current shipment lifecycle state.
         entity.setStatus(dto.getStatus());
+        // Copies the shipment weight value subject to rules validation.
         entity.setTotalWeight(dto.getTotalWeight());
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
         entity.setCustomer(access.get(Customer.class, dto.getCustomerId()));
