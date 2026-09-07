@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for delivery stop workflows.
 @Service
+// Specializes the shared CRUD workflow for DeliveryStop entities and DTOs.
 public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopDTO> {
     /** Injects persistence access and shared rule validation for DeliveryStop resources. */
     public DeliveryStopService(
