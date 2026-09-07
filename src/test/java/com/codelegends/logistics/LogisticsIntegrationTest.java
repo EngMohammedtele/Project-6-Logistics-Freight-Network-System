@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.*;
 import java.util.*;
 
+/**
+ * Exercises the main logistics workflows, CRUD endpoints, validation, and soft-delete behavior through MockMvc.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("demo")
@@ -22,9 +25,12 @@ import java.util.*;
         classMode =
                 org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class LogisticsIntegrationTest {
+    /** MockMvc client used to exercise HTTP endpoints without starting a server. */
     @Autowired MockMvc mvc;
+    /** ObjectMapper used to serialize request bodies and parse JSON responses. */
     @Autowired ObjectMapper mapper;
 
+    /** Performs an HTTP request and asserts the expected status code. */
     JsonNode request(String method, String path, Object body, int expected) throws Exception {
         var builder =
                 switch (method) {
@@ -42,6 +48,7 @@ class LogisticsIntegrationTest {
                 : mapper.readTree(response.getContentAsString());
     }
 
+    /** Creates a resource through its REST endpoint and returns the generated ID. */
     long create(String resource, Object body) throws Exception {
         return request("POST", "/api/" + resource, body, 201).get("id").asLong();
     }
@@ -121,6 +128,7 @@ class LogisticsIntegrationTest {
         return Map.of("w", w, "p", p, "i", i, "c", c, "k", k, "v", v, "d", d);
     }
 
+    /** Builds an operations shipment payload for the shared fixture data. */
     Map<String, Object> shipment(Map<String, Long> x, int q) {
         return Map.of(
                 "warehouseId",
@@ -134,6 +142,7 @@ class LogisticsIntegrationTest {
     }
 
     @Test
+    /** Verifies the delivery workflow and expected business-rule rejections. */
     void deliveryWorkflowAndRejections() throws Exception {
         var x = setup();
         long s =
@@ -223,6 +232,7 @@ class LogisticsIntegrationTest {
     }
 
     @Test
+    /** Verifies stock rollback and capacity validation scenarios. */
     void insufficientInventoryAndCapacity() throws Exception {
         var x = setup();
         request("POST", "/api/operations/shipments", shipment(x, 11), 400);
@@ -290,6 +300,7 @@ class LogisticsIntegrationTest {
     }
 
     @Test
+    /** Verifies request validation, not-found handling, updates, and soft deletion. */
     void validationAndSoftDelete() throws Exception {
         request(
                 "POST",
@@ -310,6 +321,7 @@ class LogisticsIntegrationTest {
         request("GET", "/api/warehouses/" + id, null, 404);
     }
 
+    /** Exercises create, list, read, and update operations for a CRUD resource. */
     long exercise(String resource, Map<String, Object> body) throws Exception {
         long id = create(resource, body);
         request("GET", "/api/" + resource, null, 200);
@@ -318,12 +330,14 @@ class LogisticsIntegrationTest {
         return id;
     }
 
+    /** Soft deletes a resource and confirms it is no longer readable. */
     void remove(String resource, long id) throws Exception {
         request("DELETE", "/api/" + resource + "/" + id, null, 204);
         request("GET", "/api/" + resource + "/" + id, null, 404);
     }
 
     @Test
+    /** Verifies every exposed CRUD surface participates in the shared lifecycle. */
     void allSixteenCrudSurfaces() throws Exception {
         long w =
                 exercise(
