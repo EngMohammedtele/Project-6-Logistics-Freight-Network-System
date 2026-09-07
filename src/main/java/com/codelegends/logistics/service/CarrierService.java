@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class CarrierService extends CrudService<Carrier, CarrierDTO> {
     /** Injects persistence access and shared rule validation for Carrier resources. */
     public CarrierService(CarrierRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Carrier.class);
     }
 
