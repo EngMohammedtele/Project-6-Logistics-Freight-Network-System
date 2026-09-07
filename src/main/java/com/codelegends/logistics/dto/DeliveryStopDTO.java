@@ -32,6 +32,7 @@ public class DeliveryStopDTO {
     @NotNull @Positive private Integer sequence;
 
     @NotBlank
+    // Validates the address before the value is passed to service logic.
     @Size(max = 300)
     /** Stores the delivery address for the stop. */
     private String address;
