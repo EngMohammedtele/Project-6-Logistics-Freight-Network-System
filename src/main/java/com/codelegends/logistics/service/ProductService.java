@@ -41,6 +41,7 @@ public class ProductService extends CrudService<Product, ProductDTO> {
         entity.setName(dto.getName());
         // Copies the stock keeping unit into the product entity.
         entity.setSku(dto.getSku());
+        // Copies product weight used by shipment calculations.
         entity.setWeightKg(dto.getWeightKg());
         entity.setCategory(dto.getCategory());
     }
