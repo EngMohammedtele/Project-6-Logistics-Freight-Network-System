@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for invoice workflows.
 @Service
+// Specializes the shared CRUD workflow for Invoice entities and DTOs.
 public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
     /** Injects persistence access and shared rule validation for Invoice resources. */
     public InvoiceService(InvoiceRepository repository, EntityAccess access, Rules rules) {
