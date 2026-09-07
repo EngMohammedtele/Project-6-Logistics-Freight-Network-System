@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for vehicle resources.
  */
+// Registers this class as the Spring service for vehicle workflows.
 @Service
 public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
     /** Injects persistence access and shared rule validation for Vehicle resources. */
