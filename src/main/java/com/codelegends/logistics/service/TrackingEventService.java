@@ -16,6 +16,7 @@ public class TrackingEventService extends CrudService<TrackingEvent, TrackingEve
     /** Injects persistence access and shared rule validation for TrackingEvent resources. */
     public TrackingEventService(
             TrackingEventRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, TrackingEvent.class);
     }
 
