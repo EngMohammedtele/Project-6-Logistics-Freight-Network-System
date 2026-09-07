@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a customer that can own addresses, shipments, and invoices.
  */
+// Registers Customer as a persistent JPA entity.
 @Entity
 @Table(name = "customer")
 @Getter
