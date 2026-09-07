@@ -44,6 +44,7 @@ public class InventoryItemService extends CrudService<InventoryItem, InventoryIt
         entity.setShelfLocation(dto.getShelfLocation());
         // Resolves the warehouse that stores this inventory item.
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
+        // Resolves the product represented by this inventory record.
         entity.setProduct(access.get(Product.class, dto.getProductId()));
     }
 }
