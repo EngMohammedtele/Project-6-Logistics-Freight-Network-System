@@ -39,6 +39,7 @@ public class WarehouseService extends CrudService<Warehouse, WarehouseDTO> {
     protected void copy(WarehouseDTO dto, Warehouse entity) {
         // Copies the warehouse display name.
         entity.setName(dto.getName());
+        // Copies the warehouse location used by logistics workflows.
         entity.setLocation(dto.getLocation());
         entity.setCapacity(dto.getCapacity());
     }
