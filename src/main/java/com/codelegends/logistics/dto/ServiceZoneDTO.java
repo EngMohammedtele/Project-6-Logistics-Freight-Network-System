@@ -12,7 +12,7 @@ import java.time.*;
 import java.util.List;
 
 /**
- * Transfers servicezone data between API clients and the service layer.
+ * Transfers service zone data between API clients and the service layer.
  */
 @Data
 @Builder
