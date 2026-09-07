@@ -16,6 +16,7 @@ import java.util.Optional;
 // Uses Long as the shared primary-key type for logistics entities.
 public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, Long> {
     /** Returns only entities that have not been soft deleted. */
+    // Uses a Spring Data derived query based on the inherited isActive flag.
     List<E> findAllByIsActiveTrue();
 
     /** Looks up a single entity while excluding soft-deleted rows. */
