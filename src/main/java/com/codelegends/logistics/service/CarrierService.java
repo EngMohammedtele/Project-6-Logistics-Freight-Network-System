@@ -37,6 +37,7 @@ public class CarrierService extends CrudService<Carrier, CarrierDTO> {
     /** Copies validated DTO values and resolved relationships onto the Carrier entity. */
     // Maps request DTO fields onto the mutable Carrier entity.
     protected void copy(CarrierDTO dto, Carrier entity) {
+        // Copies the carrier display name into the entity.
         entity.setName(dto.getName());
         entity.setContactEmail(dto.getContactEmail());
         entity.setPhoneNumber(dto.getPhoneNumber());
