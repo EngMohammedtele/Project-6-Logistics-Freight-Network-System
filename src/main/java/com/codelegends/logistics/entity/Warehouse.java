@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for storage warehouse rows.
 @Table(name = "warehouse")
+// Generates read accessors for persisted storage warehouse properties.
 @Getter
 @Setter
 @NoArgsConstructor
