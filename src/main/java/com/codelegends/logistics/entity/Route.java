@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for delivery route rows.
 @Table(name = "route")
+// Generates read accessors for persisted delivery route properties.
 @Getter
 @Setter
 @NoArgsConstructor
