@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for driver workflows.
 @Service
+// Specializes the shared CRUD workflow for Driver entities and DTOs.
 public class DriverService extends CrudService<Driver, DriverDTO> {
     /** Injects persistence access and shared rule validation for Driver resources. */
     public DriverService(DriverRepository repository, EntityAccess access, Rules rules) {
