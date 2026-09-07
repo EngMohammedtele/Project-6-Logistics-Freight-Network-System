@@ -15,6 +15,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for shipment invoice rows.
 @Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = {"shipment_id"}))
+// Generates read accessors for persisted shipment invoice properties.
 @Getter
 @Setter
 @NoArgsConstructor
