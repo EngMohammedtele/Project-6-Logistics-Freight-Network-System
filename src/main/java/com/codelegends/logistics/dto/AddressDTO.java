@@ -52,6 +52,7 @@ public class AddressDTO {
     private String country;
 
     /** References the customer that owns this address. */
+    // Documents the validation rule applied to the customer identifier.
     @NotNull @Positive private Long customerId;
 
     /** References the service zone that covers this address. */
