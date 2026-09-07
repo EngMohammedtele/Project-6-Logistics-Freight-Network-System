@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
     /** Injects persistence access and shared rule validation for Invoice resources. */
     public InvoiceService(InvoiceRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Invoice.class);
     }
 
