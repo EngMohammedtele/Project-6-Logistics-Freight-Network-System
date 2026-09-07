@@ -19,6 +19,7 @@ import java.util.List;
 // Delegates standard persistence behavior to Spring Data JPA.
 public interface InvoiceRepository extends ActiveRepository<Invoice> {
 
+    // Executes a custom JPQL query instead of relying only on method-name derivation.
     @Query(
             "select i from Invoice i where i.isActive=true and i.customer.id=:customerId and"
                 + " i.status=:status")
