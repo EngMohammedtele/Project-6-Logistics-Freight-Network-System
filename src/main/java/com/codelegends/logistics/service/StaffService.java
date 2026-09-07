@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for staff workflows.
 @Service
+// Specializes the shared CRUD workflow for Staff entities and DTOs.
 public class StaffService extends CrudService<Staff, StaffDTO> {
     /** Injects persistence access and shared rule validation for Staff resources. */
     public StaffService(StaffRepository repository, EntityAccess access, Rules rules) {
