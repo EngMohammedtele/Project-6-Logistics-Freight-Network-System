@@ -23,6 +23,7 @@ public class DeliveryStopService extends CrudService<DeliveryStop, DeliveryStopD
     @Override
     /** Creates a new DeliveryStop entity instance for create requests. */
     protected DeliveryStop newEntity() {
+        // Returns a blank DeliveryStop instance that the copy method will populate.
         return new DeliveryStop();
     }
 
