@@ -9,4 +9,5 @@ import com.codelegends.logistics.entity.ServiceZone;
 // Uses ServiceZone as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for service zone database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface ServiceZoneRepository extends ActiveRepository<ServiceZone> {}
