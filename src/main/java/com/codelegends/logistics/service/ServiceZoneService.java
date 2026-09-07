@@ -41,6 +41,7 @@ public class ServiceZoneService extends CrudService<ServiceZone, ServiceZoneDTO>
         entity.setName(dto.getName());
         // Copies the geographic region served by the zone.
         entity.setRegion(dto.getRegion());
+        // Copies the base delivery rate used for zone pricing.
         entity.setBaseRate(dto.getBaseRate());
     }
 }
