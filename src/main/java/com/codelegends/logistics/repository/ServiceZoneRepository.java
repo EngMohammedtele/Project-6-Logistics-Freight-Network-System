@@ -8,4 +8,5 @@ import com.codelegends.logistics.entity.ServiceZone;
 // Binds ServiceZone persistence to the shared active-record repository contract.
 // Uses ServiceZone as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
+// Reuses active-row lookup methods for service zone database access.
 public interface ServiceZoneRepository extends ActiveRepository<ServiceZone> {}
