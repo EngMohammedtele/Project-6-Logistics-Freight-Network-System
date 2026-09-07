@@ -1,0 +1,17 @@
+package com.codelegends.logistics.repository;
+
+import com.codelegends.logistics.entity.*;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface InvoiceRepository extends ActiveRepository<Invoice> {
+
+    @Query(
+            "select i from Invoice i where i.isActive=true and i.customer.id=:customerId and"
+                + " i.status=:status")
+    List<Invoice> unpaid(
+            @Param("customerId") Long customerId, @Param("status") InvoiceStatus status);
+}

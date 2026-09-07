@@ -1,0 +1,56 @@
+Logistics Network - observed development and integration-test log
+Date: 2026-09-07
+
+1. HTTP: N/A (build)
+Error: Maven could not resolve repository hostname directly.
+Cause: This execution environment requires its supplied proxy for Maven.
+Fix: Used a temporary Maven settings file outside the project. No proxy configuration or credentials are shipped.
+
+2. HTTP: N/A (test initialization)
+Error: Mockito MockMaker could not initialize.
+Cause: Dynamic agent attachment is restricted in the execution environment.
+Fix: Selected mock-maker-subclass under src/test/resources/mockito-extensions.
+
+3. HTTP: 400
+Case: Invoice generated before shipment delivery.
+Cause: Shipment status is not DELIVERED.
+Resolution: Correctly rejected; complete delivery before invoicing. Observed in integration test.
+
+4. HTTP: 400
+Case: Reusing the assigned vehicle and driver for a new route.
+Cause: Resources are ASSIGNED.
+Resolution: Correctly rejected. Route completion releases resources. Observed in integration test.
+
+5. HTTP: 400
+Case: Duplicate delivery sequence on the same route.
+Cause: Another stop already uses that sequence.
+Resolution: Correctly rejected; choose another sequence. Observed in integration test.
+
+6. HTTP: 400
+Case: Shipment exceeds available warehouse quantity.
+Cause: Requested 11 units from stock of 10.
+Resolution: Correctly rejected; remaining stock verified at 10.
+
+7. HTTP: 404
+Case: Second shipment line references a missing product after first valid line.
+Cause: Product ID does not exist.
+Resolution: Correctly rejected; transaction rollback restores first line's stock. Verified stock remains 10.
+
+8. HTTP: 400
+Case: Shipment weight 25 kg added to vehicle capacity 20 kg.
+Cause: Vehicle capacity exceeded.
+Resolution: Correctly rejected; use a vehicle with enough capacity.
+
+9. HTTP: 400
+Case: Blank warehouse name and negative capacity.
+Cause: DTO constraints fail.
+Resolution: Correctly rejected with ErrorResponse; submit valid fields.
+
+10. HTTP: 404
+Case: Read a soft-deleted record.
+Cause: isActive=false excludes the record from reads.
+Resolution: Expected behavior, verified for all 16 CRUD resources.
+
+Final result: 4 integration test methods passed, zero failures/errors.
+These are real automated test observations, not claimed manual Postman runs.
+Append your own MySQL/Postman observations below.

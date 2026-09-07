@@ -1,0 +1,3715 @@
+{
+  "info": {
+    "name": "Logistics Network",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Run 01 then 02 then 03 then 04. CRUD reference folders are independent manual tests; adapt values to current state."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "WarehouseId",
+      "value": "1"
+    },
+    {
+      "key": "ProductId",
+      "value": "1"
+    },
+    {
+      "key": "InventoryItemId",
+      "value": "1"
+    },
+    {
+      "key": "CustomerId",
+      "value": "1"
+    },
+    {
+      "key": "ServiceZoneId",
+      "value": "1"
+    },
+    {
+      "key": "AddressId",
+      "value": "1"
+    },
+    {
+      "key": "CarrierId",
+      "value": "1"
+    },
+    {
+      "key": "VehicleId",
+      "value": "1"
+    },
+    {
+      "key": "DriverId",
+      "value": "1"
+    },
+    {
+      "key": "ShipmentId",
+      "value": "1"
+    },
+    {
+      "key": "ShipmentItemId",
+      "value": "1"
+    },
+    {
+      "key": "RouteId",
+      "value": "1"
+    },
+    {
+      "key": "DeliveryStopId",
+      "value": "1"
+    },
+    {
+      "key": "TrackingEventId",
+      "value": "1"
+    },
+    {
+      "key": "InvoiceId",
+      "value": "1"
+    },
+    {
+      "key": "StaffId",
+      "value": "1"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const d=new Date(); d.setDate(d.getDate()+1);",
+          "pm.collectionVariables.set(\"tomorrow\",d.toISOString().slice(0,10));",
+          "pm.collectionVariables.set(\"eta\",d.toISOString().slice(0,10)+\"T12:00:00\");",
+          "pm.collectionVariables.set(\"past\",new Date(Date.now()-60000).toISOString().slice(0,19));"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Setup",
+      "item": [
+        {
+          "name": "Create Warehouse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/warehouses",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Muscat Warehouse\",\n  \"location\": \"Muscat\",\n  \"capacity\": 1000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"WarehouseId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/products",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Parcel Box\",\n  \"sku\": \"BOX-{{$randomUUID}}\",\n  \"weightKg\": 5,\n  \"category\": \"General\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"ProductId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create InventoryItem",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/inventory-items",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 100,\n  \"shelfLocation\": \"A1\",\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"productId\": \"{{ProductId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"InventoryItemId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mohammed\",\n  \"email\": \"mohammed@example.com\",\n  \"phoneNumber\": \"90000000\",\n  \"type\": \"INDIVIDUAL\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"CustomerId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create ServiceZone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/service-zones",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Muscat Zone\",\n  \"region\": \"Muscat\",\n  \"baseRate\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"ServiceZoneId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Address",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/addresses",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"street\": \"Al Khuwair\",\n  \"city\": \"Muscat\",\n  \"postalCode\": \"133\",\n  \"country\": \"Oman\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"serviceZoneId\": \"{{ServiceZoneId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"AddressId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Carrier",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/carriers",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Oman Freight\",\n  \"contactEmail\": \"carrier@example.com\",\n  \"phoneNumber\": \"90000001\",\n  \"country\": \"Oman\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"CarrierId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Vehicle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/vehicles",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plateNumber\": \"V-{{$randomInt}}\",\n  \"type\": \"VAN\",\n  \"capacityKg\": 200,\n  \"status\": \"AVAILABLE\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"VehicleId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Driver",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/drivers",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ahmed\",\n  \"licenseNumber\": \"L-{{$randomUUID}}\",\n  \"phoneNumber\": \"90000002\",\n  \"status\": \"AVAILABLE\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"DriverId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/staff",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Salim\",\n  \"role\": \"Warehouse Operator\",\n  \"phoneNumber\": \"90000003\",\n  \"warehouseId\": \"{{WarehouseId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"StaffId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 Delivery workflow",
+      "item": [
+        {
+          "name": "Create shipment and reserve inventory",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/shipments",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"carrierId\": \"{{CarrierId}}\",\n  \"items\": [\n    {\n      \"productId\": \"{{ProductId}}\",\n      \"quantity\": 3\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"ShipmentId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Assign carrier",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/shipments/{{ShipmentId}}/carrier",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Invoice before delivery rejected",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/shipments/{{ShipmentId}}/invoice",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Build route",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/routes",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"routeDate\": \"{{tomorrow}}\",\n  \"origin\": \"Muscat\",\n  \"destination\": \"Ibri\",\n  \"vehicleId\": \"{{VehicleId}}\",\n  \"driverId\": \"{{DriverId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"RouteId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Unavailable vehicle or driver",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/routes",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"routeDate\": \"{{tomorrow}}\",\n  \"origin\": \"Muscat\",\n  \"destination\": \"Ibri\",\n  \"vehicleId\": \"{{VehicleId}}\",\n  \"driverId\": \"{{DriverId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Add stop",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/routes/{{RouteId}}/stops",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sequence\": 1,\n  \"address\": \"Ibri town\",\n  \"eta\": \"{{eta}}\",\n  \"shipmentId\": \"{{ShipmentId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"DeliveryStopId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Duplicate sequence rejected",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/routes/{{RouteId}}/stops",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sequence\": 1,\n  \"address\": \"Ibri town\",\n  \"eta\": \"{{eta}}\",\n  \"shipmentId\": \"{{ShipmentId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tracking picked up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/shipments/{{ShipmentId}}/tracking",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventTime\": \"{{past}}\",\n  \"location\": \"Muscat\",\n  \"status\": \"PICKED_UP\",\n  \"note\": \"Picked up at warehouse\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"TrackingEventId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Complete stop and route",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/stops/{{DeliveryStopId}}/complete",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"completed\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Generate invoice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/shipments/{{ShipmentId}}/invoice",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"InvoiceId\",pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 Queries and stats",
+      "item": [
+        {
+          "name": "/shipments?status=DELIVERED",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/shipments?status=DELIVERED",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/inventory?threshold=100",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/inventory?threshold=100",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/driver-routes?driverId={{DriverId}}&date={{tomorrow}}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/driver-routes?driverId={{DriverId}}&date={{tomorrow}}",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/available-vehicles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/available-vehicles",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/customers/{{CustomerId}}/shipments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/customers/{{CustomerId}}/shipments",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/customers/{{CustomerId}}/unpaid-invoices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/customers/{{CustomerId}}/unpaid-invoices",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/warehouses/{{WarehouseId}}/stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/warehouses/{{WarehouseId}}/stats",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/carriers/{{CarrierId}}/stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/carriers/{{CarrierId}}/stats",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "/customers/{{CustomerId}}/stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/queries/customers/{{CustomerId}}/stats",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 Error cases",
+      "item": [
+        {
+          "name": "Missing ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products/999999999",
+            "description": ""
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Blank name and negative capacity",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/warehouses",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"location\": \"Muscat\",\n  \"capacity\": -1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Bad enum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mohammed\",\n  \"email\": \"mohammed@example.com\",\n  \"phoneNumber\": \"90000000\",\n  \"type\": \"INVALID\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Future tracking date",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/shipments/{{ShipmentId}}/tracking",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventTime\": \"2999-01-01T00:00:00\",\n  \"location\": \"Muscat\",\n  \"status\": \"DELIVERED\",\n  \"note\": \"Invalid\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Out of stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/shipments",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"carrierId\": \"{{CarrierId}}\",\n  \"items\": [\n    {\n      \"productId\": \"{{ProductId}}\",\n      \"quantity\": 100000\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Prepare overweight shipment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/operations/shipments",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"carrierId\": \"{{CarrierId}}\",\n  \"items\": [\n    {\n      \"productId\": \"{{ProductId}}\",\n      \"quantity\": 50\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"HeavyShipmentId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Prepare route for capacity test",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/operations/routes",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicleId\": \"{{VehicleId}}\",\n  \"driverId\": \"{{DriverId}}\",\n  \"routeDate\": \"{{tomorrow}}\",\n  \"origin\": \"Muscat\",\n  \"destination\": \"Ibri\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "if(pm.response.code < 300) pm.collectionVariables.set(\"CapacityRouteId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Vehicle capacity exceeded",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/operations/routes/{{CapacityRouteId}}/stops",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipmentId\": \"{{HeavyShipmentId}}\",\n  \"sequence\": 1,\n  \"address\": \"Ibri\",\n  \"eta\": \"{{eta}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05 CRUD reference (manual independent tests)",
+      "item": [
+        {
+          "name": "Warehouse CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/warehouses",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Muscat Warehouse\",\n  \"location\": \"Muscat\",\n  \"capacity\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"WarehouseId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/warehouses",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/warehouses/{{WarehouseId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/warehouses/{{WarehouseId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Muscat Warehouse\",\n  \"location\": \"Muscat\",\n  \"capacity\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/warehouses/{{WarehouseId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/warehouses/{{WarehouseId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Product CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/products",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Parcel Box\",\n  \"sku\": \"BOX-{{$randomUUID}}\",\n  \"weightKg\": 5,\n  \"category\": \"General\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"ProductId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/products",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/products/{{ProductId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/products/{{ProductId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Parcel Box\",\n  \"sku\": \"BOX-{{$randomUUID}}\",\n  \"weightKg\": 5,\n  \"category\": \"General\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/products/{{ProductId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/products/{{ProductId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "InventoryItem CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/inventory-items",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 100,\n  \"shelfLocation\": \"A1\",\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"productId\": \"{{ProductId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"InventoryItemId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/inventory-items",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/inventory-items/{{InventoryItemId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/inventory-items/{{InventoryItemId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 100,\n  \"shelfLocation\": \"A1\",\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"productId\": \"{{ProductId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/inventory-items/{{InventoryItemId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/inventory-items/{{InventoryItemId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Customer CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/customers",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Mohammed\",\n  \"email\": \"mohammed@example.com\",\n  \"phoneNumber\": \"90000000\",\n  \"type\": \"INDIVIDUAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"CustomerId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/customers",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/customers/{{CustomerId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/customers/{{CustomerId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Mohammed\",\n  \"email\": \"mohammed@example.com\",\n  \"phoneNumber\": \"90000000\",\n  \"type\": \"INDIVIDUAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/customers/{{CustomerId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/customers/{{CustomerId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "ServiceZone CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/service-zones",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Muscat Zone\",\n  \"region\": \"Muscat\",\n  \"baseRate\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"ServiceZoneId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/service-zones",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/service-zones/{{ServiceZoneId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/service-zones/{{ServiceZoneId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Muscat Zone\",\n  \"region\": \"Muscat\",\n  \"baseRate\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/service-zones/{{ServiceZoneId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/service-zones/{{ServiceZoneId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Address CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/addresses",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"street\": \"Al Khuwair\",\n  \"city\": \"Muscat\",\n  \"postalCode\": \"133\",\n  \"country\": \"Oman\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"serviceZoneId\": \"{{ServiceZoneId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"AddressId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/addresses",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/addresses/{{AddressId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/addresses/{{AddressId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"street\": \"Al Khuwair\",\n  \"city\": \"Muscat\",\n  \"postalCode\": \"133\",\n  \"country\": \"Oman\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"serviceZoneId\": \"{{ServiceZoneId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/addresses/{{AddressId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/addresses/{{AddressId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Carrier CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/carriers",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Oman Freight\",\n  \"contactEmail\": \"carrier@example.com\",\n  \"phoneNumber\": \"90000001\",\n  \"country\": \"Oman\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"CarrierId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/carriers",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/carriers/{{CarrierId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/carriers/{{CarrierId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Oman Freight\",\n  \"contactEmail\": \"carrier@example.com\",\n  \"phoneNumber\": \"90000001\",\n  \"country\": \"Oman\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/carriers/{{CarrierId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/carriers/{{CarrierId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Vehicle CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/vehicles",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"V-{{$randomInt}}\",\n  \"type\": \"VAN\",\n  \"capacityKg\": 200,\n  \"status\": \"AVAILABLE\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"VehicleId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/vehicles",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/vehicles/{{VehicleId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/vehicles/{{VehicleId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"V-{{$randomInt}}\",\n  \"type\": \"VAN\",\n  \"capacityKg\": 200,\n  \"status\": \"AVAILABLE\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/vehicles/{{VehicleId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/vehicles/{{VehicleId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Driver CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/drivers",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Ahmed\",\n  \"licenseNumber\": \"L-{{$randomUUID}}\",\n  \"phoneNumber\": \"90000002\",\n  \"status\": \"AVAILABLE\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"DriverId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/drivers",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/drivers/{{DriverId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/drivers/{{DriverId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Ahmed\",\n  \"licenseNumber\": \"L-{{$randomUUID}}\",\n  \"phoneNumber\": \"90000002\",\n  \"status\": \"AVAILABLE\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/drivers/{{DriverId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/drivers/{{DriverId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Shipment CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/shipments",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipmentDate\": \"{{past}}\",\n  \"status\": \"CREATED\",\n  \"totalWeight\": 0,\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"ShipmentId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipments",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipments/{{ShipmentId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/shipments/{{ShipmentId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipmentDate\": \"{{past}}\",\n  \"status\": \"CREATED\",\n  \"totalWeight\": 0,\n  \"warehouseId\": \"{{WarehouseId}}\",\n  \"customerId\": \"{{CustomerId}}\",\n  \"carrierId\": \"{{CarrierId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipments/{{ShipmentId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipments/{{ShipmentId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "ShipmentItem CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/shipment-items",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 2,\n  \"shipmentId\": \"{{ShipmentId}}\",\n  \"productId\": \"{{ProductId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"ShipmentItemId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipment-items",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipment-items/{{ShipmentItemId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/shipment-items/{{ShipmentItemId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 2,\n  \"shipmentId\": \"{{ShipmentId}}\",\n  \"productId\": \"{{ProductId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipment-items/{{ShipmentItemId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/shipment-items/{{ShipmentItemId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Route CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/routes",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"routeDate\": \"{{tomorrow}}\",\n  \"origin\": \"Muscat\",\n  \"destination\": \"Ibri\",\n  \"status\": \"PLANNED\",\n  \"vehicleId\": \"{{VehicleId}}\",\n  \"driverId\": \"{{DriverId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"RouteId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/routes",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/routes/{{RouteId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/routes/{{RouteId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"routeDate\": \"{{tomorrow}}\",\n  \"origin\": \"Muscat\",\n  \"destination\": \"Ibri\",\n  \"status\": \"PLANNED\",\n  \"vehicleId\": \"{{VehicleId}}\",\n  \"driverId\": \"{{DriverId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/routes/{{RouteId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/routes/{{RouteId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "DeliveryStop CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/delivery-stops",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sequence\": 1,\n  \"address\": \"Ibri town\",\n  \"status\": \"PENDING\",\n  \"eta\": \"{{eta}}\",\n  \"routeId\": \"{{RouteId}}\",\n  \"shipmentId\": \"{{ShipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"DeliveryStopId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/delivery-stops",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/delivery-stops/{{DeliveryStopId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/delivery-stops/{{DeliveryStopId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sequence\": 1,\n  \"address\": \"Ibri town\",\n  \"status\": \"PENDING\",\n  \"eta\": \"{{eta}}\",\n  \"routeId\": \"{{RouteId}}\",\n  \"shipmentId\": \"{{ShipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/delivery-stops/{{DeliveryStopId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/delivery-stops/{{DeliveryStopId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "TrackingEvent CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/tracking-events",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventTime\": \"{{past}}\",\n  \"location\": \"Muscat\",\n  \"status\": \"PICKED_UP\",\n  \"note\": \"Picked up at warehouse\",\n  \"shipmentId\": \"{{ShipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"TrackingEventId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/tracking-events",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/tracking-events/{{TrackingEventId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/tracking-events/{{TrackingEventId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventTime\": \"{{past}}\",\n  \"location\": \"Muscat\",\n  \"status\": \"PICKED_UP\",\n  \"note\": \"Picked up at warehouse\",\n  \"shipmentId\": \"{{ShipmentId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/tracking-events/{{TrackingEventId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/tracking-events/{{TrackingEventId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Invoice CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/invoices",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 25,\n  \"status\": \"UNPAID\",\n  \"issuedDate\": \"{{past}}\",\n  \"shipmentId\": \"{{ShipmentId}}\",\n  \"customerId\": \"{{CustomerId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"InvoiceId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/invoices",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/invoices/{{InvoiceId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/invoices/{{InvoiceId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 25,\n  \"status\": \"UNPAID\",\n  \"issuedDate\": \"{{past}}\",\n  \"shipmentId\": \"{{ShipmentId}}\",\n  \"customerId\": \"{{CustomerId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/invoices/{{InvoiceId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/invoices/{{InvoiceId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        },
+        {
+          "name": "Staff CRUD \u2014 run on dedicated test records",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/staff",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Salim\",\n  \"role\": \"Warehouse Operator\",\n  \"phoneNumber\": \"90000003\",\n  \"warehouseId\": \"{{WarehouseId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                      "if(pm.response.code < 300) pm.collectionVariables.set(\"StaffId\",pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/staff",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/staff/{{StaffId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/staff/{{StaffId}}",
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Salim\",\n  \"role\": \"Warehouse Operator\",\n  \"phoneNumber\": \"90000003\",\n  \"warehouseId\": \"{{WarehouseId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Soft delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{baseUrl}}/api/staff/{{StaffId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Read deleted returns 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}/api/staff/{{StaffId}}",
+                "description": ""
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Reference requests. Adapt IDs/state before running. Shipment items require CREATED shipment; invoices require DELIVERED shipment. PUT preserves protected business state. Do not run all CRUD folders as a workflow."
+        }
+      ]
+    }
+  ]
+}
