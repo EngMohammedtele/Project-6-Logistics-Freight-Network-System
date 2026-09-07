@@ -10,7 +10,9 @@ import java.util.Optional;
 
 @NoRepositoryBean
 public interface ActiveRepository<E extends BaseClass> extends JpaRepository<E, Long> {
+    /** Returns only entities that have not been soft deleted. */
     List<E> findAllByIsActiveTrue();
 
+    /** Looks up a single entity while excluding soft-deleted rows. */
     Optional<E> findByIdAndIsActiveTrue(Long id);
 }
