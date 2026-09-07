@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class DriverService extends CrudService<Driver, DriverDTO> {
     /** Injects persistence access and shared rule validation for Driver resources. */
     public DriverService(DriverRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Driver.class);
     }
 
