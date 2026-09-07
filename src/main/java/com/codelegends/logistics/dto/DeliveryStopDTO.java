@@ -28,6 +28,7 @@ public class DeliveryStopDTO {
     private Long id;
 
     /** Defines the stop order within the route. */
+    // Requires the sequence so invalid DTO payloads are rejected early.
     @NotNull @Positive private Integer sequence;
 
     @NotBlank
