@@ -46,6 +46,7 @@ public class AddressDTO {
     private String postalCode;
 
     @NotBlank
+    // Ensures the country is present and meaningful for this DTO.
     @Size(max = 100)
     /** Stores the country associated with the resource. */
     private String country;
