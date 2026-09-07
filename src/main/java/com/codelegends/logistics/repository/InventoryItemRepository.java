@@ -19,6 +19,7 @@ import java.util.List;
 // Delegates standard persistence behavior to Spring Data JPA.
 public interface InventoryItemRepository extends ActiveRepository<InventoryItem> {
 
+    // Executes a custom JPQL query instead of relying only on method-name derivation.
     @Query("select i from InventoryItem i where i.isActive=true and i.quantity<:threshold")
     /** Finds active inventory records below the supplied quantity threshold. */
     List<InventoryItem> below(@Param("threshold") Integer threshold);
