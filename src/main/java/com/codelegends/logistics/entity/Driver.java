@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for carrier driver rows.
 @Table(name = "driver", uniqueConstraints = @UniqueConstraint(columnNames = {"license_number"}))
+// Generates read accessors for persisted carrier driver properties.
 @Getter
 @Setter
 @NoArgsConstructor
