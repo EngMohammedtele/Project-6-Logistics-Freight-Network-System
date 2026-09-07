@@ -45,6 +45,7 @@ public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
         entity.setCapacityKg(dto.getCapacityKg());
         // Copies the vehicle availability state.
         entity.setStatus(dto.getStatus());
+        // Resolves the carrier that owns the vehicle.
         entity.setCarrier(access.get(Carrier.class, dto.getCarrierId()));
     }
 }
