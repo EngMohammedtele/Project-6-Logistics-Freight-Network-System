@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for route resources.
  */
+// Registers this class as the Spring service for route workflows.
 @Service
 public class RouteService extends CrudService<Route, RouteDTO> {
     /** Injects persistence access and shared rule validation for Route resources. */
