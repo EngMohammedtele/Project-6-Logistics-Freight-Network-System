@@ -12,6 +12,7 @@ import java.util.List;
  */
 // Binds Invoice persistence to the shared active-record repository contract.
 // Uses Invoice as the aggregate root for inherited CRUD operations.
+// Inherits Long-based identifier handling from ActiveRepository.
 public interface InvoiceRepository extends ActiveRepository<Invoice> {
 
     @Query(
