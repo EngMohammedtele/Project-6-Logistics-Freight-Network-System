@@ -40,6 +40,7 @@ public class CustomerDTO {
     /** Accepts the phone number during write operations while keeping it out of responses. */
     private String phoneNumber;
 
+    /** Classifies the customer as an individual or business account. */
     @NotNull private CustomerType type;
 
     /** Maps a persisted entity into its API response representation. */
