@@ -43,6 +43,7 @@ public class ProductService extends CrudService<Product, ProductDTO> {
         entity.setSku(dto.getSku());
         // Copies product weight used by shipment calculations.
         entity.setWeightKg(dto.getWeightKg());
+        // Copies the product category used for catalog grouping.
         entity.setCategory(dto.getCategory());
     }
 }
