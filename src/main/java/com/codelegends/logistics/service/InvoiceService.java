@@ -39,6 +39,7 @@ public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
     protected void copy(InvoiceDTO dto, Invoice entity) {
         // Copies the invoice amount into the billing entity.
         entity.setAmount(dto.getAmount());
+        // Copies the invoice payment status.
         entity.setStatus(dto.getStatus());
         entity.setIssuedDate(dto.getIssuedDate());
         entity.setShipment(access.get(Shipment.class, dto.getShipmentId()));
