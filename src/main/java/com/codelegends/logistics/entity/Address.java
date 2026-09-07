@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "address")
 // Generates read accessors for persisted customer address properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for customer address.
 @Setter
 @NoArgsConstructor
 public class Address extends BaseClass {
