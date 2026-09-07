@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Applies CRUD persistence and DTO mapping for staff resources.
  */
+// Registers this class as the Spring service for staff workflows.
 @Service
 public class StaffService extends CrudService<Staff, StaffDTO> {
     /** Injects persistence access and shared rule validation for Staff resources. */
