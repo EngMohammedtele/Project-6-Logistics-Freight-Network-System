@@ -20,6 +20,7 @@ import java.util.List;
 public interface InventoryItemRepository extends ActiveRepository<InventoryItem> {
 
     // Executes a custom JPQL query instead of relying only on method-name derivation.
+    // Filters active inventory rows whose quantity is below the requested threshold.
     @Query("select i from InventoryItem i where i.isActive=true and i.quantity<:threshold")
     /** Finds active inventory records below the supplied quantity threshold. */
     List<InventoryItem> below(@Param("threshold") Integer threshold);
