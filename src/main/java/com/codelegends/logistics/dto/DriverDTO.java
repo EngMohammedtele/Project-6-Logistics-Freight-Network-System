@@ -39,8 +39,10 @@ public class DriverDTO {
     /** Accepts the phone number during write operations while keeping it out of responses. */
     private String phoneNumber;
 
+    /** Tracks whether the driver is available, assigned, or unavailable for maintenance. */
     @NotNull private Availability status;
 
+    /** References the carrier that employs the driver. */
     @NotNull @Positive private Long carrierId;
 
     /** Maps a persisted entity into its API response representation. */
