@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "customer")
 // Generates read accessors for persisted customer account properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for customer account.
 @Setter
 @NoArgsConstructor
 public class Customer extends BaseClass {
