@@ -20,6 +20,7 @@ import java.util.List;
 // Delegates standard persistence behavior to Spring Data JPA.
 public interface RouteRepository extends ActiveRepository<Route> {
 
+    // Executes a custom JPQL query instead of relying only on method-name derivation.
     @Query(
             "select r from Route r where r.isActive=true and r.driver.id=:driverId and"
                 + " r.routeDate=:date")
