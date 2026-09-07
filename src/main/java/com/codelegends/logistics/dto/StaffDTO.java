@@ -39,6 +39,7 @@ public class StaffDTO {
 
     @NotBlank
     @Size(max = 20)
+    // Accepts phone values for write requests while preventing response serialization.
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     /** Accepts the phone number during write operations while keeping it out of responses. */
     private String phoneNumber;
