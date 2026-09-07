@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "tracking_event")
 // Generates read accessors for persisted shipment tracking event properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for shipment tracking event.
 @Setter
 @NoArgsConstructor
 public class TrackingEvent extends BaseClass {
