@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers InventoryItem as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for warehouse inventory item rows.
 @Table(
         name = "inventory_item",
         uniqueConstraints = @UniqueConstraint(columnNames = {"warehouse_id", "product_id"}))
