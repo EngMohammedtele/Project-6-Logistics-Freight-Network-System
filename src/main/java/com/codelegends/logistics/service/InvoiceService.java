@@ -22,6 +22,7 @@ public class InvoiceService extends CrudService<Invoice, InvoiceDTO> {
     @Override
     /** Creates a new Invoice entity instance for create requests. */
     protected Invoice newEntity() {
+        // Returns a blank Invoice instance that the copy method will populate.
         return new Invoice();
     }
 
