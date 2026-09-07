@@ -15,6 +15,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for service zone rows.
 @Table(name = "service_zone")
+// Generates read accessors for persisted service zone properties.
 @Getter
 @Setter
 @NoArgsConstructor
