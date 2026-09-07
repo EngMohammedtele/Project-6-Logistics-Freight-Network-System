@@ -34,6 +34,7 @@ public class DriverDTO {
     private String name;
 
     @NotBlank
+    // Requires the license number so invalid DTO payloads are rejected early.
     @Size(max = 50)
     // Accepts license values during driver writes without exposing them through reads.
     // Accepts phone values for write requests while preventing response serialization.
