@@ -35,6 +35,7 @@ public class RouteService extends CrudService<Route, RouteDTO> {
 
     @Override
     /** Copies validated DTO values and resolved relationships onto the Route entity. */
+    // Maps request DTO fields onto the mutable Route entity.
     protected void copy(RouteDTO dto, Route entity) {
         entity.setRouteDate(dto.getRouteDate());
         entity.setOrigin(dto.getOrigin());
