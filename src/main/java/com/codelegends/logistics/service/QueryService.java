@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+// Keeps reporting queries read-only because they do not mutate entities.
 @Transactional(readOnly = true)
 public class QueryService {
     private final ShipmentRepository shipments;
