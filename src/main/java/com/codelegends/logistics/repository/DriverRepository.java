@@ -9,4 +9,5 @@ import com.codelegends.logistics.entity.Driver;
 // Uses Driver as the aggregate root for inherited CRUD operations.
 // Inherits Long-based identifier handling from ActiveRepository.
 // Reuses active-row lookup methods for driver database access.
+// Delegates standard persistence behavior to Spring Data JPA.
 public interface DriverRepository extends ActiveRepository<Driver> {}
