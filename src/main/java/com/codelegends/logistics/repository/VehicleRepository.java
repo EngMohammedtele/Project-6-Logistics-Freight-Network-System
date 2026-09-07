@@ -26,5 +26,6 @@ public interface VehicleRepository extends ActiveRepository<Vehicle> {
     // Returns vehicles that match the requested assignment readiness state.
     // Supports dispatch selection by narrowing the fleet to a status value.
     // Returns a list because several vehicles can share the same availability.
+    // Binds the availability argument to the JPQL vehicle status predicate.
     List<Vehicle> available(@Param("status") Availability status);
 }
