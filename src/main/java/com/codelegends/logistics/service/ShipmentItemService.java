@@ -30,6 +30,7 @@ public class ShipmentItemService extends CrudService<ShipmentItem, ShipmentItemD
     @Override
     /** Converts the persisted ShipmentItem entity to its DTO representation. */
     protected ShipmentItemDTO toDTO(ShipmentItem entity) {
+        // Reuses the DTO mapper to expose persisted shipment item values to callers.
         return ShipmentItemDTO.convertToDTO(entity);
     }
 
