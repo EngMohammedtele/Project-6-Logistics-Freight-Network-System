@@ -18,6 +18,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for shipment line item.
 @Setter
+// Provides the default constructor required by JPA for shipment line item hydration.
 @NoArgsConstructor
 public class ShipmentItem extends BaseClass {
 
