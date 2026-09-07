@@ -15,6 +15,7 @@ import java.util.*;
 @Entity
 // Defines the database table metadata used for carrier vehicle rows.
 @Table(name = "vehicle", uniqueConstraints = @UniqueConstraint(columnNames = {"plate_number"}))
+// Generates read accessors for persisted carrier vehicle properties.
 @Getter
 @Setter
 @NoArgsConstructor
