@@ -43,6 +43,7 @@ public class VehicleService extends CrudService<Vehicle, VehicleDTO> {
         entity.setType(dto.getType());
         // Copies the capacity used by route validation.
         entity.setCapacityKg(dto.getCapacityKg());
+        // Copies the vehicle availability state.
         entity.setStatus(dto.getStatus());
         entity.setCarrier(access.get(Carrier.class, dto.getCarrierId()));
     }
