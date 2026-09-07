@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class RouteService extends CrudService<Route, RouteDTO> {
     /** Injects persistence access and shared rule validation for Route resources. */
     public RouteService(RouteRepository repository, EntityAccess access, Rules rules) {
+        // Passes the repository, entity access helper, and rules engine to the shared CRUD base.
         super(repository, access, rules, Route.class);
     }
 
