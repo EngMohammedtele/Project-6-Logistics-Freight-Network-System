@@ -12,6 +12,7 @@ import java.util.*;
  */
 // Registers Warehouse as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for storage warehouse rows.
 @Table(name = "warehouse")
 @Getter
 @Setter
