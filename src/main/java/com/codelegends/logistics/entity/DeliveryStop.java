@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Represents a scheduled stop on a route for a shipment delivery.
  */
+// Registers DeliveryStop as a persistent JPA entity.
 @Entity
 @Table(
         name = "delivery_stop",
