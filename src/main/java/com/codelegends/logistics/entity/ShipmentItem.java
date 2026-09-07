@@ -7,6 +7,9 @@ import lombok.*;
 import java.time.*;
 import java.util.*;
 
+/**
+ * Represents a product line item included in a shipment.
+ */
 @Entity
 @Table(name = "shipment_item")
 @Getter
@@ -15,13 +18,16 @@ import java.util.*;
 public class ShipmentItem extends BaseClass {
 
     @Column(name = "quantity", nullable = false)
+    /** Stores the item or inventory quantity. */
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shipment_id", nullable = false)
+    /** Defines the shipment associated with this record. */
     private Shipment shipment;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
+    /** Defines the product associated with this inventory or shipment item. */
     private Product product;
 }
