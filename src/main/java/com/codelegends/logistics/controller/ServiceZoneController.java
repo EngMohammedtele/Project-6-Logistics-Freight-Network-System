@@ -6,7 +6,7 @@ import com.codelegends.logistics.service.ServiceZoneService;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Handles REST API requests for servicezone resources through the shared CRUD controller.
+ * Handles REST API requests for service zone resources through the shared CRUD controller.
  */
 @RestController
 @RequestMapping("/api/service-zones")
