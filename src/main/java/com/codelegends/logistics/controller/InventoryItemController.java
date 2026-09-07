@@ -6,7 +6,7 @@ import com.codelegends.logistics.service.InventoryItemService;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Handles REST API requests for inventoryitem resources through the shared CRUD controller.
+ * Handles REST API requests for inventory item resources through the shared CRUD controller.
  */
 @RestController
 @RequestMapping("/api/inventory-items")
