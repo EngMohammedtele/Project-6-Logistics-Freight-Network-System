@@ -13,6 +13,7 @@ import java.util.*;
  */
 // Registers Shipment as a persistent JPA entity.
 @Entity
+// Defines the database table metadata used for customer shipment rows.
 @Table(name = "shipment")
 @Getter
 @Setter
