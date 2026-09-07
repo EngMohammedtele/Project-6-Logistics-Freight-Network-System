@@ -56,6 +56,7 @@ public class AddressDTO {
     @NotNull @Positive private Long customerId;
 
     /** References the service zone that covers this address. */
+    // Protects downstream mapping by validating the service zone identifier at the DTO boundary.
     @NotNull @Positive private Long serviceZoneId;
 
     /** Maps a persisted entity into its API response representation. */
