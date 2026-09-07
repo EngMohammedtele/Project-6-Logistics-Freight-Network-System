@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 // Registers this class as the Spring service for warehouse workflows.
 @Service
+// Specializes the shared CRUD workflow for Warehouse entities and DTOs.
 public class WarehouseService extends CrudService<Warehouse, WarehouseDTO> {
     /** Injects persistence access and shared rule validation for Warehouse resources. */
     public WarehouseService(WarehouseRepository repository, EntityAccess access, Rules rules) {
