@@ -19,6 +19,7 @@ import java.util.*;
 @Getter
 // Generates write accessors used by JPA and service mapping for shippable product.
 @Setter
+// Provides the default constructor required by JPA for shippable product hydration.
 @NoArgsConstructor
 public class Product extends BaseClass {
 
