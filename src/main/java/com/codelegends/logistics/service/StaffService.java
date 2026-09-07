@@ -39,6 +39,7 @@ public class StaffService extends CrudService<Staff, StaffDTO> {
     protected void copy(StaffDTO dto, Staff entity) {
         // Copies the staff member name into the entity.
         entity.setName(dto.getName());
+        // Copies the warehouse role assigned to the staff member.
         entity.setRole(dto.getRole());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setWarehouse(access.get(Warehouse.class, dto.getWarehouseId()));
