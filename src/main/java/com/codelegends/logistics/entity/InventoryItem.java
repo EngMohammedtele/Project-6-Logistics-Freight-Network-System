@@ -18,6 +18,7 @@ import java.util.*;
         uniqueConstraints = @UniqueConstraint(columnNames = {"warehouse_id", "product_id"}))
 // Generates read accessors for persisted warehouse inventory item properties.
 @Getter
+// Generates write accessors used by JPA and service mapping for warehouse inventory item.
 @Setter
 @NoArgsConstructor
 public class InventoryItem extends BaseClass {
